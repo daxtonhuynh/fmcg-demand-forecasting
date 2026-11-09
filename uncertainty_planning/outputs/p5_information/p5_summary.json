@@ -1,0 +1,85 @@
+{
+  "voi_cost_optimal": {
+    "0.0": {
+      "sku_wape": 0.2817521532027953,
+      "inventory_value": 334299.1466386908,
+      "fill_rate": 0.9858543780390753,
+      "total_cost": 100011.46111254634,
+      "inventory_reduction_vs_none": 0.0,
+      "cost_saving_vs_none": 0.0
+    },
+    "0.25": {
+      "sku_wape": 0.26294298665602966,
+      "inventory_value": 321114.79715851136,
+      "fill_rate": 0.9866302079240367,
+      "total_cost": 95225.77134601939,
+      "inventory_reduction_vs_none": 0.039438776953950816,
+      "cost_saving_vs_none": 4785.68976652695
+    },
+    "0.5": {
+      "sku_wape": 0.2391572020749588,
+      "inventory_value": 305835.7683842864,
+      "fill_rate": 0.9882363233545877,
+      "total_cost": 90103.13973369896,
+      "inventory_reduction_vs_none": 0.08514343677092162,
+      "cost_saving_vs_none": 9908.32137884738
+    },
+    "0.75": {
+      "sku_wape": 0.21689596280338586,
+      "inventory_value": 288391.8988244038,
+      "fill_rate": 0.9886232440075858,
+      "total_cost": 85593.08942732734,
+      "inventory_reduction_vs_none": 0.13732385582157447,
+      "cost_saving_vs_none": 14418.371685218997
+    },
+    "1.0": {
+      "sku_wape": 0.1891781978762042,
+      "inventory_value": 266938.54143076023,
+      "fill_rate": 0.9906350580417561,
+      "total_cost": 77787.24065625538,
+      "inventory_reduction_vs_none": 0.20149798731234458,
+      "cost_saving_vs_none": 22224.22045629096
+    }
+  },
+  "statistical_cost": {
+    "fill_rate": 0.9858543780390753,
+    "cycle_service_level": 0.9388888888888889,
+    "avg_inventory_value": 334299.14663869067,
+    "holding_cost": 83574.78665967267,
+    "lost_value": 16436.67445287366,
+    "total_cost": 100011.46111254634,
+    "lost_units": 18470.249798062505,
+    "orders": 360.0
+  },
+  "fva": {
+    "informed": {
+      "fva_points": 4.132981532451075,
+      "bias_final": 0.00020084117578235454,
+      "overrides_improved_share": 0.5945370370370371,
+      "avg_inventory_value": 334379.5208274123,
+      "cost_change_vs_statistical": -7220.098085325413
+    },
+    "optimistic": {
+      "fva_points": -1.5262848791306467,
+      "bias_final": 0.050930197729193154,
+      "overrides_improved_share": 0.38925649734724677,
+      "avg_inventory_value": 363805.0714815605,
+      "cost_change_vs_statistical": 3364.1226821235637
+    },
+    "chaser": {
+      "fva_points": -3.475640435389926,
+      "bias_final": -0.0053089873584099365,
+      "overrides_improved_share": 0.41388888888888886,
+      "avg_inventory_value": 347328.551466274,
+      "cost_change_vs_statistical": 7049.007000574682
+    },
+    "sandbagger": {
+      "fva_points": -0.5759194966596715,
+      "bias_final": -0.10833547329743713,
+      "overrides_improved_share": 0.45,
+      "avg_inventory_value": 288642.36141668423,
+      "cost_change_vs_statistical": -514.1282156895613
+    }
+  },
+  "large_order_threshold_units": 515.0
+}

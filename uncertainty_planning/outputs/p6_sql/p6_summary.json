@@ -1,0 +1,29 @@
+{
+  "checks_passed": 17,
+  "checks_total": 17,
+  "queries": [
+    "q1_interval_calibration",
+    "q2_calibration_monitor",
+    "q3_hierarchy_accuracy",
+    "q4_policy_frontier",
+    "q5_default_policy_by_segment",
+    "q6_monthly_inventory_trend",
+    "q7_replenishment_plan",
+    "q8_value_of_information",
+    "q9_forecast_value_added"
+  ],
+  "reconciled_figures": 320,
+  "reconciled_matching": 320,
+  "tables": {
+    "dim_month": 36,
+    "dim_policy": 552,
+    "dim_sku": 30,
+    "fact_demand": 1080,
+    "fact_inventory_sim": 298080,
+    "fact_override_log": 1440,
+    "fact_quantile_forecast": 118800,
+    "fact_reconciled_forecast": 11448,
+    "fact_replenishment_plan": 3780,
+    "fact_voi_run": 184
+  }
+}

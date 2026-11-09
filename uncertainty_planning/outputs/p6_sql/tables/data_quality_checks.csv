@@ -1,0 +1,18 @@
+check_name,failed_rows
+dim_sku has 30 unique SKUs,0
+fact_demand is a full SKU x month grid,0
+fact_demand reconciles with raw units,0
+large + base units = units,0
+quantiles increase with tau,0
+quantile actuals match demand (1-month windows),0
+reconciled SKUs add up to the total,0
+reconciled actual total matches demand,0
+inventory balance: closing = opening + receipts - sales,0
+inventory continuity: opening = previous closing,0
+"sales between 0 and demand, lost = demand - sales",0
+no negative stock or orders,0
+simulated demand matches fact_demand,0
+every policy simulated for every SKU-month,0
+"plan: position = on hand + in transit, order = max(S - position, 0)",0
+override log actuals match demand,0
+"service targets within (0, 1)",0

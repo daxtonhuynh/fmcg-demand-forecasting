@@ -1,0 +1,11 @@
+model,note,sku_wape_1m,sku_wape_3m,total_wape_1m,status,chosen,noise_floor
+Historical average,"All known months, per SKU",0.282,0.281,0.071,usable,True,0.262
+GBM: history + planned discount & price,Scenario: assumes prices known ahead,0.288,0.285,0.092,usable,False,0.262
+Ridge: history only,,0.292,0.292,0.086,usable,False,0.262
+Ridge: history + lagged drivers,,0.295,0.293,0.085,usable,False,0.262
+Moving average (3 months),,0.312,0.313,0.086,usable,False,0.262
+GBM: history only,,0.313,0.302,0.1,usable,False,0.262
+GBM: history + lagged drivers,,0.316,0.297,0.092,usable,False,0.262
+Naive (last known month),,0.396,0.363,0.092,usable,False,0.262
+Seasonal naive (same month last year),Best on the company total,0.407,0.407,0.066,usable,False,0.262
+GBM: + same-month marketing,Marketing is booked after the sale,0.135,0.142,0.031,leaky,False,0.262

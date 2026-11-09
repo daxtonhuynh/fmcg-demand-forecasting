@@ -1,0 +1,5 @@
+forecast,sku_wape_1m,note
+GBM with same-month marketing,0.135,Looks excellent
+"Same model, marketing removed",0.288,The honest number
+Historical average per SKU,0.282,Simplest model
+Noise floor,0.262,Perfect 2025 averages

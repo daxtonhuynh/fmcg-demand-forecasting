@@ -1,0 +1,94 @@
+{
+  "default_policy": "L1|historical_average|normal|cr_profit_h25",
+  "default": {
+    "avg_inventory_value": 334299.14663869067,
+    "fill_rate": 0.9858543780390753,
+    "cycle_service_level": 0.9388888888888889,
+    "holding_cost": 83574.78665967267,
+    "lost_value": 16436.67445287366,
+    "total_cost": 100011.46111254634,
+    "lost_units": 18470.249798062505
+  },
+  "uniform_95": {
+    "avg_inventory_value": 354595.4892550827,
+    "fill_rate": 0.9872747129898544,
+    "cycle_service_level": 0.9388888888888889,
+    "holding_cost": 88648.87231377067,
+    "lost_value": 16331.794043938773,
+    "total_cost": 104980.66635770946
+  },
+  "best_cover_total_cost": 103463.94855662031,
+  "monthly_demand_at_cost": 250094.87461186972,
+  "inventory_months_of_cogs": 1.3366893150349453,
+  "sensitivity_cr_beats_sl95_share": 1.0,
+  "sensitivity_cr_saving_vs_sl95_range": [
+    0.005243281187374271,
+    0.19776628858891454
+  ],
+  "decision_ranking": [
+    {
+      "method": "historical_average",
+      "qmethod": "normal",
+      "total_cost": 100011.46111254634
+    },
+    {
+      "method": "historical_average",
+      "qmethod": "empirical_scaled",
+      "total_cost": 101605.20172509896
+    },
+    {
+      "method": "historical_average",
+      "qmethod": "empirical",
+      "total_cost": 102881.23156334835
+    },
+    {
+      "method": "moving_average_3",
+      "qmethod": "normal",
+      "total_cost": 118440.10706898474
+    },
+    {
+      "method": "moving_average_3",
+      "qmethod": "empirical",
+      "total_cost": 126612.71593160393
+    },
+    {
+      "method": "moving_average_3",
+      "qmethod": "empirical_scaled",
+      "total_cost": 127611.40038021388
+    },
+    {
+      "method": "seasonal_naive",
+      "qmethod": "normal",
+      "total_cost": 133786.74282458657
+    },
+    {
+      "method": "seasonal_naive",
+      "qmethod": "empirical_scaled",
+      "total_cost": 148089.5959172673
+    },
+    {
+      "method": "seasonal_naive",
+      "qmethod": "empirical",
+      "total_cost": 149661.9234823385
+    },
+    {
+      "method": "naive",
+      "qmethod": "normal",
+      "total_cost": 171829.8073317931
+    },
+    {
+      "method": "naive",
+      "qmethod": "empirical",
+      "total_cost": 218785.28725694335
+    },
+    {
+      "method": "naive",
+      "qmethod": "empirical_scaled",
+      "total_cost": 225637.69609934255
+    }
+  ],
+  "plan_month": "2026-01-01",
+  "plan_total_order_value": 290932.6269193082,
+  "plan_total_order_units": 125328.27433535829,
+  "n_policies": 552
+}

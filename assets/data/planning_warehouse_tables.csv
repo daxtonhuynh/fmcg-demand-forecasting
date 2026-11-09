@@ -1,0 +1,11 @@
+table,one_row_per,kind,rows
+dim_sku,"SKU, with unit cost, unit profit and its service target",dim,30
+dim_month,"Month, flagged history or test year",dim,36
+dim_policy,"Stock policy: lead time, forecast, range method, target",dim,552
+fact_demand,"SKU × month: units, of which large orders",fact,1080
+fact_quantile_forecast,SKU × month × window × method × quantile,fact,118800
+fact_reconciled_forecast,Series × month × reconciliation approach,fact,11448
+fact_inventory_sim,"Policy × SKU × month: received, sold, lost, left",fact,298080
+fact_replenishment_plan,Policy × SKU: the order for January 2026,fact,3780
+fact_override_log,Planner × SKU × month: system vs final number,fact,1440
+fact_voi_run,Visibility level × random draw × policy,fact,184

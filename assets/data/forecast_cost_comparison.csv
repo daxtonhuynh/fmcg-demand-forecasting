@@ -1,0 +1,5 @@
+forecast,sku_wape_1m,avg_inventory_value,fill_rate,total_cost
+Historical average,0.281752,334299,0.985854,100011
+Moving average (3 months),0.312169,414291,0.983606,118440
+Seasonal naive,0.407143,455880,0.979071,133787
+Naive (last month),0.395564,680638,0.996247,171830

@@ -1,0 +1,79 @@
+{
+  "champion": {
+    "selection_period": [
+      "2024-07",
+      "2024-12"
+    ],
+    "point_wape_h1": {
+      "historical_average": 0.28044368949798393,
+      "seasonal_naive": 0.3564370154936599,
+      "naive": 0.38091479917885257,
+      "moving_average_3": 0.325360833437508
+    },
+    "forecast_method": "historical_average",
+    "scaled_pinball": {
+      "normal": 0.054321358436073164,
+      "empirical": 0.05485831116830641,
+      "empirical_scaled": 0.0555440546917552
+    },
+    "quantile_method": "normal"
+  },
+  "sku_wape_h1": 0.2817521532027953,
+  "total_wape_h1": 0.07052796992211681,
+  "champion_interval": {
+    "method": "historical_average",
+    "qmethod": "normal",
+    "window": 1,
+    "coverage_0.05": 0.025,
+    "coverage_0.1": 0.07222222222222222,
+    "coverage_0.25": 0.2388888888888889,
+    "coverage_0.5": 0.5388888888888889,
+    "coverage_0.75": 0.7361111111111112,
+    "coverage_0.8": 0.8027777777777778,
+    "coverage_0.9": 0.9,
+    "coverage_0.95": 0.9277777777777778,
+    "coverage_0.975": 0.9583333333333334,
+    "coverage_0.99": 0.9777777777777777,
+    "scaled_pinball": 0.07092308482866709,
+    "interval80_coverage": 0.8277777777777777,
+    "interval80_rel_width": 0.9508385170141095,
+    "interval90_coverage": 0.9027777777777778,
+    "interval90_rel_width": 1.2203880244890446,
+    "per_sku_coverage90_sd": 0.08443713418650368,
+    "per_sku_coverage90_min": 0.75,
+    "per_sku_coverage90_max": 1.0,
+    "n_forecasts": 360
+  },
+  "normal_interval": {
+    "method": "historical_average",
+    "qmethod": "normal",
+    "window": 1,
+    "coverage_0.05": 0.025,
+    "coverage_0.1": 0.07222222222222222,
+    "coverage_0.25": 0.2388888888888889,
+    "coverage_0.5": 0.5388888888888889,
+    "coverage_0.75": 0.7361111111111112,
+    "coverage_0.8": 0.8027777777777778,
+    "coverage_0.9": 0.9,
+    "coverage_0.95": 0.9277777777777778,
+    "coverage_0.975": 0.9583333333333334,
+    "coverage_0.99": 0.9777777777777777,
+    "scaled_pinball": 0.07092308482866709,
+    "interval80_coverage": 0.8277777777777777,
+    "interval80_rel_width": 0.9508385170141095,
+    "interval90_coverage": 0.9027777777777778,
+    "interval90_rel_width": 1.2203880244890446,
+    "per_sku_coverage90_sd": 0.08443713418650368,
+    "per_sku_coverage90_min": 0.75,
+    "per_sku_coverage90_max": 1.0,
+    "n_forecasts": 360
+  },
+  "fan_chart_skus": [
+    "BEV-RT-301",
+    "PCR-PL-102"
+  ],
+  "expected_per_sku_sd_from_noise": 0.08660254037844385,
+  "monitor_first_alarm": {
+    "normal": "2025-05-01"
+  }
+}

@@ -1,0 +1,321 @@
+figure,python,sql,abs_diff,match
+coverage | empirical | tau 0.05,0.0555555555556,0.0555555555556,4.44505543484e-14,True
+coverage | empirical | tau 0.1,0.111111111111,0.111111111111,1.11105569189e-13,True
+coverage | empirical | tau 0.25,0.269444444444,0.269444444444,4.44422276757e-13,True
+coverage | empirical | tau 0.5,0.522222222222,0.522222222222,2.2226664953e-13,True
+coverage | empirical | tau 0.75,0.741666666667,0.741666666667,3.33288951992e-13,True
+coverage | empirical | tau 0.8,0.8,0.8,0,True
+coverage | empirical | tau 0.9,0.911111111111,0.911111111111,1.11133324765e-13,True
+coverage | empirical | tau 0.95,0.961111111111,0.961111111111,1.11133324765e-13,True
+coverage | empirical | tau 0.975,0.986111111111,0.986111111111,1.11133324765e-13,True
+coverage | empirical | tau 0.99,0.997222222222,0.997222222222,2.2226664953e-13,True
+coverage | empirical_scaled | tau 0.05,0.0472222222222,0.0472222222222,2.22183382803e-14,True
+coverage | empirical_scaled | tau 0.1,0.108333333333,0.108333333333,3.33330585356e-13,True
+coverage | empirical_scaled | tau 0.25,0.258333333333,0.258333333333,3.33344463144e-13,True
+coverage | empirical_scaled | tau 0.5,0.522222222222,0.522222222222,2.2226664953e-13,True
+coverage | empirical_scaled | tau 0.75,0.75,0.75,0,True
+coverage | empirical_scaled | tau 0.8,0.808333333333,0.808333333333,3.33399974295e-13,True
+coverage | empirical_scaled | tau 0.9,0.922222222222,0.922222222222,2.2226664953e-13,True
+coverage | empirical_scaled | tau 0.95,0.963888888889,0.963888888889,1.11133324765e-13,True
+coverage | empirical_scaled | tau 0.975,0.986111111111,0.986111111111,1.11133324765e-13,True
+coverage | empirical_scaled | tau 0.99,0.994444444444,0.994444444444,4.44422276757e-13,True
+coverage | normal | tau 0.05,0.025,0.025,0,True
+coverage | normal | tau 0.1,0.0722222222222,0.0722222222222,2.22183382803e-14,True
+coverage | normal | tau 0.25,0.238888888889,0.238888888889,1.11105569189e-13,True
+coverage | normal | tau 0.5,0.538888888889,0.538888888889,1.11133324765e-13,True
+coverage | normal | tau 0.75,0.736111111111,0.736111111111,1.11133324765e-13,True
+coverage | normal | tau 0.8,0.802777777778,0.802777777778,2.22155627227e-13,True
+coverage | normal | tau 0.9,0.9,0.9,0,True
+coverage | normal | tau 0.95,0.927777777778,0.927777777778,2.22155627227e-13,True
+coverage | normal | tau 0.975,0.958333333333,0.958333333333,3.33399974295e-13,True
+coverage | normal | tau 0.99,0.977777777778,0.977777777778,2.2226664953e-13,True
+WAPE | historical_average | base | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | historical_average | bottom_up | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | historical_average | mint_shrink | brand,0.207793540288,0.207793540288,2.27540208897e-13,True
+WAPE | historical_average | ols | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | historical_average | top_down | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | historical_average | wls_structural | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | historical_average | base | category,0.12594734442,0.12594734442,1.06831210545e-13,True
+WAPE | historical_average | bottom_up | category,0.12594734442,0.12594734442,1.06831210545e-13,True
+WAPE | historical_average | mint_shrink | category,0.12594734442,0.12594734442,1.06886721696e-13,True
+WAPE | historical_average | ols | category,0.12594734442,0.12594734442,1.06803454969e-13,True
+WAPE | historical_average | top_down | category,0.12594734442,0.12594734442,1.06831210545e-13,True
+WAPE | historical_average | wls_structural | category,0.12594734442,0.12594734442,1.06831210545e-13,True
+WAPE | historical_average | base | sku,0.281752153203,0.281752153203,2.04725125741e-13,True
+WAPE | historical_average | bottom_up | sku,0.281752153203,0.281752153203,2.04725125741e-13,True
+WAPE | historical_average | mint_shrink | sku,0.281752153203,0.281752153203,2.04614103438e-13,True
+WAPE | historical_average | ols | sku,0.281752153203,0.281752153203,2.04780636892e-13,True
+WAPE | historical_average | top_down | sku,0.281752153203,0.281752153203,2.04725125741e-13,True
+WAPE | historical_average | wls_structural | sku,0.281752153203,0.281752153203,2.04836148043e-13,True
+WAPE | historical_average | base | total,0.0705279699221,0.0705279699221,1.67921232475e-14,True
+WAPE | historical_average | bottom_up | total,0.0705279699221,0.0705279699221,1.67366120962e-14,True
+WAPE | historical_average | mint_shrink | total,0.0705279699221,0.0705279699221,1.67921232475e-14,True
+WAPE | historical_average | ols | total,0.0705279699221,0.0705279699221,1.6750489884e-14,True
+WAPE | historical_average | top_down | total,0.0705279699221,0.0705279699221,1.67921232475e-14,True
+WAPE | historical_average | wls_structural | total,0.0705279699221,0.0705279699221,1.67921232475e-14,True
+WAPE | level_best | base | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | level_best | bottom_up | brand,0.207793540288,0.207793540288,2.27595720048e-13,True
+WAPE | level_best | mint_shrink | brand,0.208453669194,0.208453669194,1.6048273821e-13,True
+WAPE | level_best | top_down | brand,0.211329598099,0.211329598099,4.83557638375e-13,True
+WAPE | level_best | wls_structural | brand,0.212683105776,0.212683105776,3.46833672893e-13,True
+WAPE | level_best | ols | brand,0.230659134277,0.230659134277,1.65895075455e-13,True
+WAPE | level_best | wls_structural | category,0.124698219629,0.124698219629,3.41421335648e-13,True
+WAPE | level_best | top_down | category,0.125477886951,0.125477886951,1.89875892787e-13,True
+WAPE | level_best | bottom_up | category,0.12594734442,0.12594734442,1.06831210545e-13,True
+WAPE | level_best | mint_shrink | category,0.126007446019,0.126007446019,1.89015469942e-14,True
+WAPE | level_best | ols | category,0.150031700582,0.150031700582,2.22877272194e-13,True
+WAPE | level_best | base | category,0.180785802797,0.180785802797,2.26374474721e-13,True
+WAPE | level_best | base | sku,0.281752153203,0.281752153203,2.04725125741e-13,True
+WAPE | level_best | bottom_up | sku,0.281752153203,0.281752153203,2.04725125741e-13,True
+WAPE | level_best | top_down | sku,0.283439307276,0.283439307276,1.5959455979e-13,True
+WAPE | level_best | mint_shrink | sku,0.283571349217,0.283571349217,2.74058553629e-13,True
+WAPE | level_best | wls_structural | sku,0.284974614453,0.284974614453,2.9709568139e-13,True
+WAPE | level_best | ols | sku,0.298769515022,0.298769515022,3.61932706028e-13,True
+WAPE | level_best | base | total,0.0658241187634,0.0658241187634,1.2129186544e-14,True
+WAPE | level_best | top_down | total,0.0658241187634,0.0658241187634,1.21014309684e-14,True
+WAPE | level_best | ols | total,0.0659602079586,0.0659602079586,4.0800696155e-15,True
+WAPE | level_best | wls_structural | total,0.0679102909894,0.0679102909894,4.72816230612e-14,True
+WAPE | level_best | bottom_up | total,0.0705279699221,0.0705279699221,1.67366120962e-14,True
+WAPE | level_best | mint_shrink | total,0.0719048397569,0.0719048397569,1.28647092978e-14,True
+WAPE | seasonal_naive | top_down | brand,0.211329598099,0.211329598099,4.83557638375e-13,True
+WAPE | seasonal_naive | base | brand,0.300619886928,0.300619886928,4.57966997658e-13,True
+WAPE | seasonal_naive | bottom_up | brand,0.300619886928,0.300619886928,4.57966997658e-13,True
+WAPE | seasonal_naive | mint_shrink | brand,0.300619886928,0.300619886928,4.57966997658e-13,True
+WAPE | seasonal_naive | ols | brand,0.300619886928,0.300619886928,4.57966997658e-13,True
+WAPE | seasonal_naive | wls_structural | brand,0.300619886928,0.300619886928,4.57966997658e-13,True
+WAPE | seasonal_naive | top_down | category,0.125477886951,0.125477886951,1.89875892787e-13,True
+WAPE | seasonal_naive | base | category,0.180785802797,0.180785802797,2.26374474721e-13,True
+WAPE | seasonal_naive | bottom_up | category,0.180785802797,0.180785802797,2.26374474721e-13,True
+WAPE | seasonal_naive | mint_shrink | category,0.180785802797,0.180785802797,2.26402230297e-13,True
+WAPE | seasonal_naive | ols | category,0.180785802797,0.180785802797,2.26402230297e-13,True
+WAPE | seasonal_naive | wls_structural | category,0.180785802797,0.180785802797,2.26374474721e-13,True
+WAPE | seasonal_naive | top_down | sku,0.283439307276,0.283439307276,1.5959455979e-13,True
+WAPE | seasonal_naive | base | sku,0.4071433276,0.4071433276,4.03732602905e-13,True
+WAPE | seasonal_naive | bottom_up | sku,0.4071433276,0.4071433276,4.03732602905e-13,True
+WAPE | seasonal_naive | mint_shrink | sku,0.4071433276,0.4071433276,4.03732602905e-13,True
+WAPE | seasonal_naive | ols | sku,0.4071433276,0.4071433276,4.03732602905e-13,True
+WAPE | seasonal_naive | wls_structural | sku,0.4071433276,0.4071433276,4.03732602905e-13,True
+WAPE | seasonal_naive | base | total,0.0658241187634,0.0658241187634,1.2129186544e-14,True
+WAPE | seasonal_naive | bottom_up | total,0.0658241187634,0.0658241187634,1.2129186544e-14,True
+WAPE | seasonal_naive | mint_shrink | total,0.0658241187634,0.0658241187634,1.2129186544e-14,True
+WAPE | seasonal_naive | ols | total,0.0658241187634,0.0658241187634,1.2129186544e-14,True
+WAPE | seasonal_naive | top_down | total,0.0658241187634,0.0658241187634,1.21014309684e-14,True
+WAPE | seasonal_naive | wls_structural | total,0.0658241187634,0.0658241187634,1.21153087562e-14,True
+fill_rate | L1|historical_average|empirical_scaled|cr_profit_h35,0.988478258083,0.988478258083,3.43725048424e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_profit_h35,0.961111111111,0.961111111111,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_profit_h35,344415.731867,344415.731867,1.58848706633e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_profit_h35,98191.7240903,98191.7240903,2.47673597187e-08,True
+fill_rate | L1|historical_average|normal|cr_profit_h35,0.982116291413,0.982116291413,3.80362408237e-13,True
+cycle_service_level | L1|historical_average|normal|cr_profit_h35,0.933333333333,0.933333333333,3.33399974295e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_profit_h35,313006.035191,313006.035191,3.30270268023e-07,True
+total_cost | L1|historical_average|normal|cr_profit_h35,98673.6612354,98673.6612354,1.74768501893e-08,True
+fill_rate | L1|historical_average|empirical|cr_profit_h35,0.987535550713,0.987535550713,2.91433543964e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_profit_h35,0.952777777778,0.952777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical|cr_profit_h35,344023.214067,344023.214067,4.66650817543e-07,True
+total_cost | L1|historical_average|empirical|cr_profit_h35,99416.9445088,99416.9445088,4.42960299551e-08,True
+fill_rate | L1|historical_average|normal|cr_profit_h25,0.985854378039,0.985854378039,7.51620987671e-14,True
+cycle_service_level | L1|historical_average|normal|cr_profit_h25,0.938888888889,0.938888888889,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_profit_h25,334299.146639,334299.146639,3.09257302433e-07,True
+total_cost | L1|historical_average|normal|cr_profit_h25,100011.461113,100011.461113,4.53655957244e-07,True
+fill_rate | L1|historical_average|empirical_scaled|cr_profit_h25,0.991302942627,0.991302942627,2.79665179903e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_profit_h25,0.966666666667,0.966666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_profit_h25,369770.16611,369770.16611,4.71831299365e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_profit_h25,101605.201725,101605.201725,9.89384716377e-08,True
+fill_rate | L1|historical_average|empirical_scaled|sl90,0.986202363333,0.986202363333,4.70956607046e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl90,0.936111111111,0.936111111111,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl90,336142.659513,336142.659513,3.17755620927e-07,True
+total_cost | L1|historical_average|empirical_scaled|sl90,101818.126743,101818.126743,4.11993823946e-07,True
+fill_rate | L1|historical_average|normal|cr_profit_h15,0.989993216108,0.989993216108,2.54796184151e-13,True
+cycle_service_level | L1|historical_average|normal|cr_profit_h15,0.963888888889,0.963888888889,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_profit_h15,365275.473811,365275.473811,1.45402736962e-07,True
+total_cost | L1|historical_average|normal|cr_profit_h15,102878.673421,102878.673421,4.24930476584e-07,True
+fill_rate | L1|historical_average|empirical|cr_profit_h25,0.990731588931,0.990731588931,4.46531700504e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_profit_h25,0.966666666667,0.966666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical|cr_profit_h25,372129.678434,372129.678434,1.84576492757e-07,True
+total_cost | L1|historical_average|empirical|cr_profit_h25,102881.231563,102881.231563,3.48358298652e-07,True
+fill_rate | L1|historical_average|cover|k0.75,0.980779718896,0.980779718896,2.21156426505e-13,True
+cycle_service_level | L1|historical_average|cover|k0.75,0.922222222222,0.922222222222,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|cover|k0.75,317727.382674,317727.382674,3.57278622687e-07,True
+total_cost | L1|historical_average|cover|k0.75,103463.948557,103463.948557,3.79688572139e-07,True
+fill_rate | L1|historical_average|empirical|sl90,0.983597933065,0.983597933065,1.85407245112e-13,True
+cycle_service_level | L1|historical_average|empirical|sl90,0.936111111111,0.936111111111,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl90,332164.54657,332164.54657,1.99244823307e-07,True
+total_cost | L1|historical_average|empirical|sl90,103693.197989,103693.197989,2.15310137719e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl85,0.975612445717,0.975612445717,1.95621296939e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl85,0.897222222222,0.897222222222,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl85,294721.232295,294721.232295,3.92203219235e-07,True
+total_cost | L1|historical_average|empirical_scaled|sl85,103947.778793,103947.778793,4.95172571391e-07,True
+fill_rate | L1|historical_average|normal|sl90,0.978389969058,0.978389969058,7.74935671188e-14,True
+cycle_service_level | L1|historical_average|normal|sl90,0.913888888889,0.913888888889,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|normal|sl90,308108.194533,308108.194533,3.16300429404e-07,True
+total_cost | L1|historical_average|normal|sl90,104002.170488,104002.170488,2.75656930171e-07,True
+fill_rate | L1|historical_average|normal|cr_gross_margin_h35,0.989802221317,0.989802221317,1.36224365122e-13,True
+cycle_service_level | L1|historical_average|normal|cr_gross_margin_h35,0.955555555556,0.955555555556,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_gross_margin_h35,366029.85971,366029.85971,3.7020072341e-07,True
+total_cost | L1|historical_average|normal|cr_gross_margin_h35,104262.974258,104262.974258,3.59228579327e-07,True
+fill_rate | L1|historical_average|normal|sl95,0.98727471299,0.98727471299,1.45661260831e-13,True
+cycle_service_level | L1|historical_average|normal|sl95,0.938888888889,0.938888888889,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|normal|sl95,354595.489255,354595.489255,8.2771293819e-08,True
+total_cost | L1|historical_average|normal|sl95,104980.666358,104980.666358,2.90528987534e-07,True
+fill_rate | L1|historical_average|empirical|sl85,0.975084444183,0.975084444183,2.02393657389e-13,True
+cycle_service_level | L1|historical_average|empirical|sl85,0.9,0.9,0,True
+avg_inventory_value | L1|historical_average|empirical|sl85,296402.804303,296402.804303,9.19681042433e-08,True
+total_cost | L1|historical_average|empirical|sl85,105227.417766,105227.417766,5.32309059054e-08,True
+fill_rate | L1|historical_average|cover|k1.00,0.990259748269,0.990259748269,1.43551837084e-13,True
+cycle_service_level | L1|historical_average|cover|k1.00,0.955555555556,0.955555555556,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|cover|k1.00,376103.150616,376103.150616,4.84345946461e-07,True
+total_cost | L1|historical_average|cover|k1.00,106556.026432,106556.026432,1.48444087245e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl95,0.993217898014,0.993217898014,3.34399175017e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl95,0.972222222222,0.972222222222,2.22155627227e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl95,391444.195744,391444.195744,4.31551598012e-07,True
+total_cost | L1|historical_average|empirical_scaled|sl95,106615.809377,106615.809377,2.72571924143e-07,True
+fill_rate | L1|historical_average|normal|cr_gross_margin_h25,0.99170208739,0.99170208739,3.95905530581e-13,True
+cycle_service_level | L1|historical_average|normal|cr_gross_margin_h25,0.966666666667,0.966666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_gross_margin_h25,385500.58785,385500.58785,1.05588696897e-07,True
+total_cost | L1|historical_average|normal|cr_gross_margin_h25,106660.82756,106660.82756,2.90674506687e-07,True
+fill_rate | L1|historical_average|normal|sl85,0.969080540292,0.969080540292,9.3369756371e-14,True
+cycle_service_level | L1|historical_average|normal|sl85,0.880555555556,0.880555555556,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|normal|sl85,277784.620348,277784.620348,2.73634213954e-07,True
+total_cost | L1|historical_average|normal|sl85,107416.9776,107416.9776,3.03509295918e-07,True
+fill_rate | L1|historical_average|normal|sl97,0.991223331543,0.991223331543,3.34399175017e-13,True
+cycle_service_level | L1|historical_average|normal|sl97,0.963888888889,0.963888888889,1.11133324765e-13,True
+avg_inventory_value | L1|historical_average|normal|sl97,385360.655067,385360.655067,1.51514541358e-07,True
+total_cost | L1|historical_average|normal|sl97,107615.459499,107615.459499,8.4619387053e-08,True
+fill_rate | L1|historical_average|empirical_scaled|cr_profit_h15,0.995101425483,0.995101425483,1.21791465801e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_profit_h15,0.980555555556,0.980555555556,4.4453329906e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_profit_h15,413013.385039,413013.385039,3.37488017976e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_profit_h15,108069.550933,108069.550933,3.04993591271e-07,True
+fill_rate | L1|historical_average|empirical_scaled|cr_gross_margin_h35,0.994761812464,0.994761812464,3.27293747659e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_gross_margin_h35,0.977777777778,0.977777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_gross_margin_h35,411338.930698,411338.930698,4.64031472802e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_gross_margin_h35,109179.786992,109179.786992,1.64684024639e-07,True
+fill_rate | L1|historical_average|empirical|cr_profit_h15,0.994553095692,0.994553095692,3.1874503037e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_profit_h15,0.975,0.975,0,True
+avg_inventory_value | L1|historical_average|empirical|cr_profit_h15,416326.748045,416326.748045,6.23986124992e-08,True
+total_cost | L1|historical_average|empirical|cr_profit_h15,109520.827254,109520.827254,2.51340679824e-07,True
+fill_rate | L1|historical_average|empirical|sl95,0.992416494236,0.992416494236,5.20694598549e-14,True
+cycle_service_level | L1|historical_average|empirical|sl95,0.969444444444,0.969444444444,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl95,400603.804285,400603.804285,3.71888745576e-07,True
+total_cost | L1|historical_average|empirical|sl95,109919.652211,109919.652211,3.73547663912e-07,True
+fill_rate | L1|historical_average|normal|cr_gross_margin_h15,0.994067789529,0.994067789529,3.68594044176e-14,True
+cycle_service_level | L1|historical_average|normal|cr_gross_margin_h15,0.972222222222,0.972222222222,2.22155627227e-13,True
+avg_inventory_value | L1|historical_average|normal|cr_gross_margin_h15,413609.382417,413609.382417,3.4348340705e-07,True
+total_cost | L1|historical_average|normal|cr_gross_margin_h15,110615.862924,110615.862924,9.16479621083e-08,True
+fill_rate | L1|historical_average|normal|sl98,0.993291207718,0.993291207718,3.03979064142e-13,True
+cycle_service_level | L1|historical_average|normal|sl98,0.969444444444,0.969444444444,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|normal|sl98,408312.801574,408312.801574,1.80036295205e-07,True
+total_cost | L1|historical_average|normal|sl98,110666.472753,110666.472753,3.25031578541e-07,True
+fill_rate | L1|historical_average|empirical|cr_gross_margin_h35,0.99451064014,0.99451064014,2.11608508494e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_gross_margin_h35,0.977777777778,0.977777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical|cr_gross_margin_h35,417192.606912,417192.606912,2.89408490062e-07,True
+total_cost | L1|historical_average|empirical|cr_gross_margin_h35,110762.010272,110762.010272,4.09796484746e-07,True
+fill_rate | L1|historical_average|cover|k0.50,0.962167464216,0.962167464216,3.88689080921e-13,True
+cycle_service_level | L1|historical_average|cover|k0.50,0.855555555556,0.855555555556,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|cover|k0.50,262222.283726,262222.283726,3.85218299925e-07,True
+total_cost | L1|historical_average|cover|k0.50,110994.435361,110994.435361,2.04512616619e-07,True
+fill_rate | L1|historical_average|empirical|sl80,0.960738600045,0.960738600045,4.46198633597e-13,True
+cycle_service_level | L1|historical_average|empirical|sl80,0.852777777778,0.852777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl80,259468.930669,259468.930669,4.42931195721e-07,True
+total_cost | L1|historical_average|empirical|sl80,111848.484934,111848.484934,4.67771315016e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl80,0.959902724142,0.959902724142,4.8738790781e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl80,0.852777777778,0.852777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl80,257661.406714,257661.406714,5.98665792495e-08,True
+total_cost | L1|historical_average|empirical_scaled|sl80,111872.238823,111872.238823,4.1292514652e-07,True
+fill_rate | L1|historical_average|normal|sl80,0.958450604653,0.958450604653,4.21218615543e-13,True
+cycle_service_level | L1|historical_average|normal|sl80,0.847222222222,0.847222222222,2.22155627227e-13,True
+avg_inventory_value | L1|historical_average|normal|sl80,254764.374326,254764.374326,4.1225575842e-07,True
+total_cost | L1|historical_average|normal|sl80,113209.367134,113209.367134,3.71568603441e-07,True
+fill_rate | L1|historical_average|empirical_scaled|cr_gross_margin_h25,0.996330050401,0.996330050401,2.00950367457e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_gross_margin_h25,0.988888888889,0.988888888889,1.11022302463e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_gross_margin_h25,438508.673457,438508.673457,3.19152604789e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_gross_margin_h25,113854.434232,113854.434232,1.06156221591e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl97,0.99660867507,0.99660867507,8.31557045444e-14,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl97,0.980555555556,0.980555555556,4.4453329906e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl97,441545.371717,441545.371717,5.95464371145e-08,True
+total_cost | L1|historical_average|empirical_scaled|sl97,114783.632122,114783.632122,3.86018655263e-07,True
+fill_rate | L1|historical_average|empirical|cr_gross_margin_h25,0.996631696151,0.996631696151,1.93511873192e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_gross_margin_h25,0.980555555556,0.980555555556,4.4453329906e-13,True
+avg_inventory_value | L1|historical_average|empirical|cr_gross_margin_h25,445238.084416,445238.084416,2.12749000639e-07,True
+total_cost | L1|historical_average|empirical|cr_gross_margin_h25,115154.479978,115154.479978,2.74376361631e-07,True
+fill_rate | L1|historical_average|normal|sl99,0.996357814052,0.996357814052,2.10276240864e-13,True
+cycle_service_level | L1|historical_average|normal|sl99,0.977777777778,0.977777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|normal|sl99,444677.60327,444677.60327,3.84345185012e-07,True
+total_cost | L1|historical_average|normal|sl99,115876.380697,115876.380697,3.74231603928e-07,True
+fill_rate | L1|historical_average|empirical|sl97,0.9959484508,0.9959484508,1.38111744263e-13,True
+cycle_service_level | L1|historical_average|empirical|sl97,0.975,0.975,0,True
+avg_inventory_value | L1|historical_average|empirical|sl97,443403.168357,443403.168357,2.34111212194e-07,True
+total_cost | L1|historical_average|empirical|sl97,116045.93834,116045.93834,2.94821802527e-08,True
+fill_rate | L1|historical_average|empirical_scaled|sl98,0.997199422937,0.997199422937,1.53210777398e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl98,0.991666666667,0.991666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl98,461328.555783,461328.555783,2.72411853075e-08,True
+total_cost | L1|historical_average|empirical_scaled|sl98,119039.608741,119039.608741,2.57350620814e-07,True
+fill_rate | L1|historical_average|empirical_scaled|cr_gross_margin_h15,0.997321287654,0.997321287654,1.26898491715e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|cr_gross_margin_h15,0.991666666667,0.991666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|cr_gross_margin_h15,478800.360428,478800.360428,3.34577634931e-07,True
+total_cost | L1|historical_average|empirical_scaled|cr_gross_margin_h15,123017.693823,123017.693823,1.83179508895e-07,True
+fill_rate | L1|historical_average|empirical|sl98,0.997921531487,0.997921531487,1.20015108962e-13,True
+cycle_service_level | L1|historical_average|empirical|sl98,0.991666666667,0.991666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl98,481697.007426,481697.007426,5.23868948221e-10,True
+total_cost | L1|historical_average|empirical|sl98,123284.845872,123284.845872,4.35364199802e-07,True
+fill_rate | L1|historical_average|empirical|cr_gross_margin_h15,0.99808446192,0.99808446192,2.90878432452e-13,True
+cycle_service_level | L1|historical_average|empirical|cr_gross_margin_h15,0.991666666667,0.991666666667,3.33288951992e-13,True
+avg_inventory_value | L1|historical_average|empirical|cr_gross_margin_h15,496467.805785,496467.805785,4.03728336096e-07,True
+total_cost | L1|historical_average|empirical|cr_gross_margin_h15,125892.055422,125892.055422,1.78551999852e-08,True
+fill_rate | L1|historical_average|cover|k0.25,0.927140100709,0.927140100709,2.50022225146e-13,True
+cycle_service_level | L1|historical_average|cover|k0.25,0.752777777778,0.752777777778,2.2226664953e-13,True
+avg_inventory_value | L1|historical_average|cover|k0.25,212664.842736,212664.842736,2.57598003373e-07,True
+total_cost | L1|historical_average|cover|k0.25,135744.963714,135744.963714,3.65660525858e-07,True
+fill_rate | L1|historical_average|empirical|sl99,0.999579377305,0.999579377305,1.76081371706e-13,True
+cycle_service_level | L1|historical_average|empirical|sl99,0.994444444444,0.994444444444,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl99,550429.411393,550429.411393,4.99421730638e-08,True
+total_cost | L1|historical_average|empirical|sl99,138512.725329,138512.725329,4.87576471642e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl99,0.999473674193,0.999473674193,1.62203583898e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl99,0.994444444444,0.994444444444,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl99,582282.456791,582282.456791,2.26311385632e-07,True
+total_cost | L1|historical_average|empirical_scaled|sl99,146639.936293,146639.936293,8.79517756402e-08,True
+fill_rate | L1|historical_average|empirical|sl50,0.891172975664,0.891172975664,2.22599716437e-13,True
+cycle_service_level | L1|historical_average|empirical|sl50,0.647222222222,0.647222222222,2.22155627227e-13,True
+avg_inventory_value | L1|historical_average|empirical|sl50,182453.713401,182453.713401,2.4467590265e-07,True
+total_cost | L1|historical_average|empirical|sl50,166130.626704,166130.626704,4.59782313555e-07,True
+fill_rate | L1|historical_average|empirical_scaled|sl50,0.890247634641,0.890247634641,1.22124532709e-13,True
+cycle_service_level | L1|historical_average|empirical_scaled|sl50,0.641666666667,0.641666666667,3.33399974295e-13,True
+avg_inventory_value | L1|historical_average|empirical_scaled|sl50,181165.473116,181165.473116,8.99308361113e-08,True
+total_cost | L1|historical_average|empirical_scaled|sl50,166683.359337,166683.359337,3.53436917067e-07,True
+fill_rate | L1|historical_average|normal|sl50,0.873862350014,0.873862350014,3.97015753606e-13,True
+cycle_service_level | L1|historical_average|normal|sl50,0.605555555556,0.605555555556,4.44422276757e-13,True
+avg_inventory_value | L1|historical_average|normal|sl50,170571.751016,170571.751016,3.2628304325e-07,True
+total_cost | L1|historical_average|normal|sl50,181043.906762,181043.906762,7.10133463144e-08,True
+VOI inventory_value | cost_optimal | p=0,334299.146639,334299.146639,0,True
+VOI sku_wape | cost_optimal | p=0,0.281752153203,0.281752153203,0,True
+VOI total_cost | cost_optimal | p=0,100011.461113,100011.461113,0,True
+VOI inventory_value | cost_optimal | p=0.25,321114.797159,321114.797158,5.66709786654e-07,True
+VOI sku_wape | cost_optimal | p=0.25,0.262942986656,0.262942986656,1.00031094519e-13,True
+VOI total_cost | cost_optimal | p=0.25,95225.771346,95225.771346,2.00234353542e-08,True
+VOI inventory_value | cost_optimal | p=0.5,305835.768384,305835.768384,1.66764948517e-07,True
+VOI sku_wape | cost_optimal | p=0.5,0.239157202075,0.239157202075,9.99755833675e-14,True
+VOI total_cost | cost_optimal | p=0.5,90103.1397337,90103.1397337,3.31783667207e-09,True
+VOI inventory_value | cost_optimal | p=0.75,288391.898824,288391.898824,4.66709025204e-07,True
+VOI sku_wape | cost_optimal | p=0.75,0.216895962803,0.216895962803,4.33347802087e-13,True
+VOI total_cost | cost_optimal | p=0.75,85593.0894273,85593.0894273,2.66591086984e-08,True
+VOI inventory_value | cost_optimal | p=1,266938.541431,266938.541431,0,True
+VOI sku_wape | cost_optimal | p=1,0.189178197876,0.189178197876,0,True
+VOI total_cost | cost_optimal | p=1,77787.2406563,77787.2406563,0,True
+VOI inventory_value | uniform_95 | p=0,354595.489255,354595.489255,0,True
+VOI sku_wape | uniform_95 | p=0,0.281752153203,0.281752153203,0,True
+VOI total_cost | uniform_95 | p=0,104980.666358,104980.666358,0,True
+VOI inventory_value | uniform_95 | p=0.25,339200.645644,339200.645644,9.98261384666e-08,True
+VOI sku_wape | uniform_95 | p=0.25,0.262942986656,0.262942986656,1.00031094519e-13,True
+VOI total_cost | uniform_95 | p=0.25,99396.846509,99396.8465089,1.19980541058e-07,True
+VOI inventory_value | uniform_95 | p=0.5,322113.997379,322113.997379,3.00002284348e-07,True
+VOI sku_wape | uniform_95 | p=0.5,0.239157202075,0.239157202075,9.99755833675e-14,True
+VOI total_cost | uniform_95 | p=0.5,93746.9115746,93746.9115746,3.3323885873e-08,True
+VOI inventory_value | uniform_95 | p=0.75,302598.371357,302598.371357,4.33414243162e-07,True
+VOI sku_wape | uniform_95 | p=0.75,0.216895962803,0.216895962803,4.33347802087e-13,True
+VOI total_cost | uniform_95 | p=0.75,88620.1525707,88620.1525707,2.66591086984e-08,True
+VOI inventory_value | uniform_95 | p=1,278733.062927,278733.062927,0,True
+VOI sku_wape | uniform_95 | p=1,0.189178197876,0.189178197876,0,True
+VOI total_cost | uniform_95 | p=1,80370.9408186,80370.9408186,0,True
+FVA points | informed (draw 0),4.1782842805,4.1782842805,2.13340456412e-12,True
+FVA points | sandbagger (draw 0),-0.57591949666,-0.57591949666,3.45723449868e-13,True
+FVA points | optimistic (draw 0),-0.609658960613,-0.609658960613,3.38395977906e-13,True
+FVA points | chaser (draw 0),-3.47564043539,-3.47564043539,7.90478793533e-14,True

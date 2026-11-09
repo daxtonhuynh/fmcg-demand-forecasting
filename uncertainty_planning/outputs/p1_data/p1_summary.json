@@ -1,0 +1,25 @@
+{
+  "raw_file": "fmcg_sales_marketing_profitability_2023_2025.csv",
+  "orders": 18240,
+  "skus": 30,
+  "months": 36,
+  "first_month": "2023-01-01",
+  "last_month": "2025-12-01",
+  "total_units": 3883474.0,
+  "large_order_threshold_units": 515.0,
+  "large_orders": 1871,
+  "large_order_share_of_orders": 0.10257675438596492,
+  "large_order_share_of_units": 0.3276208363954542,
+  "large_orders_b2b_share": 0.9652592196686264,
+  "median_unit_cost": 2.1325617577260916,
+  "median_unit_profit": 0.7664639084269814,
+  "critical_ratio_base_min": 0.7947830260661767,
+  "critical_ratio_base_median": 0.9473240293380998,
+  "critical_ratio_base_max": 0.9684646200742654,
+  "checks": {
+    "panel_units_equal_raw_units": true,
+    "large_plus_base_equal_total": true,
+    "no_empty_sku_months": true,
+    "months_gap_free": true
+  }
+}

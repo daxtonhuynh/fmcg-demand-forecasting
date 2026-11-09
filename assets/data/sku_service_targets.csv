@@ -1,0 +1,31 @@
+sku,product_name,category,unit_cost,unit_profit,service_target
+BEV-AG-102,Sparkling Water Berry,Beverages,1.82694,0.147407,0.794783
+BEV-RT-301,Instant Coffee Gold,Beverages,5.47324,0.562714,0.831507
+BEV-AG-101,Sparkling Water Lemon,Beverages,1.7099,0.186694,0.839765
+BEV-ZL-401,Green Tea Bags,Beverages,2.95151,0.487585,0.888012
+BEV-FC-202,Energy Drink Zero,Beverages,2.18478,0.623871,0.932003
+BEV-FC-201,Energy Drink Classic,Beverages,2.04562,0.594483,0.933108
+DBF-PP-301,Peanut Butter Creamy,Dairy & Breakfast,2.92644,0.994975,0.942262
+DBF-MC-101,Granola Honey,Dairy & Breakfast,3.12333,1.2322,0.949841
+DBF-PP-302,Cereal Corn Flakes,Dairy & Breakfast,2.34908,0.979621,0.95242
+DBF-MC-102,Oats Wholegrain,Dairy & Breakfast,2.1444,1.02425,0.958206
+DBF-FJ-201,Yogurt Cup Strawberry,Dairy & Breakfast,0.999509,0.498887,0.959933
+DBF-FJ-202,Greek Yogurt Plain,Dairy & Breakfast,1.26863,0.724504,0.964804
+HHD-SF-302,Paper Towels,Household,2.94727,1.00271,0.942298
+HHD-SF-301,Tissue Pack,Household,1.55729,0.59286,0.948116
+HHD-HN-102,Laundry Detergent,Household,4.82214,1.90515,0.94991
+HHD-HN-101,Dishwash Liquid,Household,2.23589,0.910263,0.951318
+HHD-SS-201,Surface Cleaner,Household,2.46437,1.05703,0.953679
+HHD-SS-202,Glass Cleaner,Household,2.12072,1.12606,0.962246
+PCR-PL-102,Conditioner Smooth,Personal Care,3.67971,1.28041,0.94351
+PCR-PL-101,Shampoo Repair,Personal Care,3.39111,1.34462,0.950082
+PCR-FN-201,Body Wash Citrus,Personal Care,2.87333,1.17677,0.951593
+PCR-FN-202,Hand Soap Gentle,Personal Care,1.44673,0.796671,0.963546
+PCR-BS-302,Toothbrush Soft,Personal Care,1.18715,0.736257,0.9675
+PCR-BS-301,Toothpaste Mint,Personal Care,1.43744,0.919677,0.968465
+SNK-CM-102,Potato Chips BBQ,Snacks,1.31266,0.333991,0.924317
+SNK-CM-101,Potato Chips Sea Salt,Snacks,1.27914,0.331515,0.925596
+SNK-TN-301,Trail Mix Original,Snacks,2.50742,0.803106,0.938928
+SNK-BI-401,Chocolate Cookies,Snacks,1.6084,0.529618,0.940496
+SNK-NB-202,Protein Bar Peanut,Snacks,1.77804,0.615111,0.9432
+SNK-NB-201,Protein Bar Cocoa,Snacks,1.81418,0.669091,0.946532

@@ -1,0 +1,38 @@
+{
+  "total": {
+    "best": "seasonal_naive",
+    "wape": {
+      "historical_average": 0.05736156504687626,
+      "seasonal_naive": 0.03978016383788514,
+      "naive": 0.07658419547284505,
+      "moving_average_3": 0.056453633235886085
+    }
+  },
+  "category": {
+    "best": "seasonal_naive",
+    "wape": {
+      "historical_average": 0.1486836238962833,
+      "seasonal_naive": 0.12690432548283076,
+      "naive": 0.16580791596944947,
+      "moving_average_3": 0.15065866002760248
+    }
+  },
+  "brand": {
+    "best": "historical_average",
+    "wape": {
+      "historical_average": 0.22810538218813017,
+      "seasonal_naive": 0.25923677872848666,
+      "naive": 0.3244134715166376,
+      "moving_average_3": 0.26787951082588174
+    }
+  },
+  "sku": {
+    "best": "historical_average",
+    "wape": {
+      "historical_average": 0.28044368949798393,
+      "seasonal_naive": 0.3564370154936599,
+      "naive": 0.38091479917885257,
+      "moving_average_3": 0.325360833437508
+    }
+  }
+}

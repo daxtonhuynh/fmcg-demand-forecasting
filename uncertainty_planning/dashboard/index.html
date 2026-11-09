@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory Planning</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script src="data.js"></script>
+<style>
+:root {
+  color-scheme: dark;
+  --page: #000050;
+  --surface: #0b0b5e;
+  --surface-2: #121270;
+  --ink: #eef0ff;
+  --ink-2: #b9bde6;
+  --muted: #8a8fc4;
+  --grid: #1d1d73;
+  --baseline: #2e2e85;
+  --border: rgba(255, 255, 255, 0.10);
+  --s1: #10a3be; --s2: #bd870d; --s3: #9e71fd; --s4: #fd259a; --s5: #10af52;
+  --good: #0ca30c; --critical: #e66767;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 20px 16px 40px; }
+header h1 { margin: 0 0 4px; font-size: 22px; font-weight: 650; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--ink-2); max-width: 900px; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.badge { border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; color: var(--ink-2); font-size: 12px; }
+nav.tabs { display: flex; gap: 4px; margin: 18px 0 14px; border-bottom: 1px solid var(--baseline); overflow-x: auto; }
+nav.tabs button { background: none; border: 0; color: var(--ink-2); padding: 10px 14px; font: inherit; cursor: pointer;
+  border-bottom: 2px solid transparent; white-space: nowrap; }
+nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--s1); font-weight: 600; }
+nav.tabs button:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+section[role="tabpanel"] { display: none; }
+section[role="tabpanel"].active { display: block; }
+.filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 14px; }
+.filters label, .replay label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+.filters label .seg { align-self: flex-start; }
+.replay select, .replay input { width: 100%; min-width: 0; }
+select, input[type="number"] { background: var(--surface); color: var(--ink); border: 1px solid var(--baseline);
+  border-radius: 8px; padding: 6px 10px; font: inherit; min-width: 120px; }
+.seg { display: inline-flex; border: 1px solid var(--baseline); border-radius: 8px; overflow: hidden; }
+.seg button { background: var(--surface); color: var(--ink-2); border: 0; padding: 6px 12px; font: inherit; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--baseline); }
+.seg button[aria-pressed="true"] { background: var(--surface-2); color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--s1); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.kpi .label { color: var(--ink-2); font-size: 12px; }
+.kpi .value { font-size: 24px; font-weight: 600; margin-top: 2px; }
+.kpi .delta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.kpi .delta.good { color: var(--good); } .kpi .delta.bad { color: var(--critical); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; min-width: 0; }
+.card.wide { grid-column: 1 / -1; }
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+.card h2 { font-size: 15px; margin: 0; font-weight: 600; }
+.card .sub { color: var(--ink-2); font-size: 12px; margin: 2px 0 0; }
+.toggle { background: none; border: 1px solid var(--baseline); color: var(--ink-2); border-radius: 6px; padding: 3px 9px; font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.chart { width: 100%; height: 320px; }
+.chart.tall { height: 380px; }
+.tablebox { overflow-x: auto; max-height: 460px; overflow-y: auto; }
+.tablebox[hidden], .chart[hidden] { display: none; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; white-space: nowrap; }
+th:first-child, td:first-child, th.l, td.l { text-align: left; }
+th { color: var(--muted); font-weight: 500; position: sticky; top: 0; background: var(--surface); }
+tr.hl td { background: rgba(189, 135, 13, 0.12); }
+tr.total td { font-weight: 600; border-top: 1px solid var(--baseline); }
+.note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+.callout { border-left: 3px solid var(--s2); padding: 8px 12px; background: var(--surface); border-radius: 0 8px 8px 0; color: var(--ink-2); margin-bottom: 14px; }
+.replay { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; align-items: end; }
+.replay .out { background: var(--surface-2); border-radius: 8px; padding: 10px; color: var(--ink-2); grid-column: 1 / -1; }
+.btn { background: var(--s1); color: #001018; border: 0; border-radius: 8px; padding: 8px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+.btn.secondary { background: none; color: var(--ink-2); border: 1px solid var(--baseline); font-weight: 500; }
+footer { margin-top: 24px; color: var(--muted); font-size: 12px; }
+footer p { margin: 4px 0; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } .chart { height: 280px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Uncertainty-aware demand planning</h1>
+    <p>From SKU forecasts that cannot be made much more accurate to inventory decisions with a price tag:
+      calibrated forecast ranges, numbers that add up from SKU to company, replenishment policies costed in a
+      month-by-month simulation, and what better information would be worth.</p>
+    <div class="badges" id="badges"></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Dashboard pages">
+    <button role="tab" id="tab-u" aria-controls="p-u" aria-selected="true">1 · Forecast uncertainty</button>
+    <button role="tab" id="tab-i" aria-controls="p-i" aria-selected="false">2 · Inventory policy</button>
+    <button role="tab" id="tab-v" aria-controls="p-v" aria-selected="false">3 · Information &amp; overrides</button>
+  </nav>
+
+  <!-- ===================================================== page 1 -->
+  <section role="tabpanel" id="p-u" aria-labelledby="tab-u" class="active">
+    <div class="filters">
+      <label>SKU <select id="f-sku"></select></label>
+      <label>Interval method <select id="f-qm-u"></select></label>
+      <label>Hierarchy base forecasts <select id="f-base"></select></label>
+    </div>
+    <div class="kpis" id="kpi-u"></div>
+    <div class="grid">
+      <div class="card wide">
+        <div class="card-head"><div><h2 id="fan-title">Forecast range vs actual</h2>
+          <p class="sub">1-month-ahead quantile forecasts for 2025, re-fitted every month on data known at the time</p></div>
+          <button class="toggle" data-target="fan">Table</button></div>
+        <div class="chart tall" id="c-fan"></div><div class="tablebox" id="t-fan" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Do the ranges mean what they say?</h2>
+          <p class="sub">Share of 2025 SKU-months below each quantile; on the diagonal = honest</p></div>
+          <button class="toggle" data-target="rel">Table</button></div>
+        <div class="chart" id="c-rel"></div><div class="tablebox" id="t-rel" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Calibration monitor, 95% quantile</h2>
+          <p class="sub">Cumulative coverage in 2025; below the alarm limit = more misses than noise explains</p></div>
+          <button class="toggle" data-target="mon">Table</button></div>
+        <div class="chart" id="c-mon"></div><div class="tablebox" id="t-mon" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>One set of numbers, Total to SKU</h2>
+          <p class="sub">WAPE by level, 1 month ahead, 2025. Amber row = planning default chosen before 2025</p></div></div>
+        <div class="tablebox" id="t-hier"></div>
+        <p class="note" id="hier-note"></p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Interval methods compared</h2>
+          <p class="sub">Champion forecast; window = months summed (lead time + review)</p></div></div>
+        <div class="tablebox" id="t-int"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== page 2 -->
+  <section role="tabpanel" id="p-i" aria-labelledby="tab-i">
+    <div class="filters">
+      <label>Lead time <span class="seg" id="f-L"></span></label>
+      <label>Holding cost, % of unit cost per year <span class="seg" id="f-h"></span></label>
+      <label>A lost sale costs <select id="f-basis"><option value="profit">Lost profit</option><option value="gross_margin">Lost gross margin</option></select></label>
+      <label>Interval method <select id="f-qm-i"></select></label>
+      <label>Service policy <select id="f-policy"></select></label>
+      <label>Category <select id="f-cat"></select></label>
+    </div>
+    <div class="kpis" id="kpi-i"></div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div><h2>Service bought per dollar of stock</h2>
+          <p class="sub">Each point is a uniform service target; up and to the left is better. Ring = selected policy</p></div>
+          <button class="toggle" data-target="front">Table</button></div>
+        <div class="chart" id="c-front"></div><div class="tablebox" id="t-front" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>What a service level costs</h2>
+          <p class="sub">Holding cost + lost sales, per year, for the selected assumptions</p></div>
+          <button class="toggle" data-target="cost">Table</button></div>
+        <div class="chart" id="c-cost"></div><div class="tablebox" id="t-cost" hidden></div>
+      </div>
+      <div class="card wide">
+        <div class="card-head"><div><h2 id="plan-title">Replenishment plan</h2>
+          <p class="sub" id="plan-sub"></p></div></div>
+        <div class="tablebox" id="t-plan"></div>
+      </div>
+      <div class="card wide">
+        <div class="card-head"><div><h2>Does the cost-optimal policy hold up under other assumptions?</h2>
+          <p class="sub">Per-SKU cost-optimal targets vs a uniform 95% target and the best rule of thumb (chosen in hindsight), champion forecast and interval method</p></div></div>
+        <div class="tablebox" id="t-sens"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== page 3 -->
+  <section role="tabpanel" id="p-v" aria-labelledby="tab-v">
+    <div class="filters">
+      <label>Share of large orders visible in the pipeline <span class="seg" id="f-vis"></span></label>
+    </div>
+    <div class="callout" id="voi-callout"></div>
+    <div class="kpis" id="kpi-v"></div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head"><div><h2>Seeing large orders early frees working capital</h2>
+          <p class="sub">Average inventory under the cost-optimal policy; band = 5th–95th percentile of 30 draws</p></div>
+          <button class="toggle" data-target="voiinv">Table</button></div>
+        <div class="chart" id="c-voiinv"></div><div class="tablebox" id="t-voiinv" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Information breaks the history-only error floor</h2>
+          <p class="sub">SKU-month WAPE, 1 month ahead, 2025</p></div>
+          <button class="toggle" data-target="voiwape">Table</button></div>
+        <div class="chart" id="c-voiwape"></div><div class="tablebox" id="t-voiwape" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Which planner overrides add value?</h2>
+          <p class="sub">Forecast Value Added vs the statistical forecast, simulated planners, mean of 30 draws</p></div>
+          <button class="toggle" data-target="fva">Table</button></div>
+        <div class="chart" id="c-fva"></div><div class="tablebox" id="t-fva" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Try it: override a 2025 forecast</h2>
+          <p class="sub">The system shows its forecast and range; you enter yours with a reason; the actual is revealed and your FVA is tracked</p></div></div>
+        <div class="replay">
+          <label>SKU <select id="r-sku"></select></label>
+          <label>Month <select id="r-month"></select></label>
+          <label>Your forecast, units <input type="number" id="r-value" min="0" step="10"></label>
+          <label>Reason <select id="r-reason">
+            <option>Known large order(s) in pipeline</option><option>Expected campaign lift</option>
+            <option>Recent sales trend</option><option>Conservative target buffer</option><option>Other</option></select></label>
+          <div class="out" id="r-system"></div>
+          <button class="btn" id="r-go">Log override and reveal actual</button>
+          <button class="btn secondary" id="r-clear">Clear my log</button>
+        </div>
+        <div class="tablebox" id="t-log" style="margin-top:10px"></div>
+        <p class="note" id="log-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const D = window.PLANNING_DATA;
+  if (!D) { document.body.textContent = "dashboard/data.js is missing - run the planning pipeline first."; return; }
+  const M = D.meta;
+  const C = { surface: "#0b0b5e", ink: "#eef0ff", ink2: "#b9bde6", muted: "#8a8fc4", grid: "#1d1d73",
+              base: "#2e2e85", s: ["#10a3be", "#bd870d", "#9e71fd", "#fd259a", "#10af52"], pos: "#10a3be", neg: "#fd259a" };
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, props = {}, kids = []) => { const e = document.createElement(tag);
+    Object.entries(props).forEach(([k, v]) => { if (k === "text") e.textContent = v; else if (k === "cls") e.className = v; else e.setAttribute(k, v); });
+    kids.forEach(k => e.appendChild(k)); return e; };
+
+  // ------------------------------------------------------------ formatting
+  const money = (v) => { const a = Math.abs(v); const s = v < 0 ? "-" : "";
+    if (a >= 1e6) return s + "$" + (a / 1e6).toFixed(2) + "M"; if (a >= 1e3) return s + "$" + (a / 1e3).toFixed(a >= 1e5 ? 0 : 1) + "K";
+    return s + "$" + a.toFixed(0); };
+  const pct = (v, d = 1) => (v * 100).toFixed(d) + "%";
+  const num = (v) => Math.round(v).toLocaleString("en-US");
+  const label = { m: (k) => M.method_labels[k] || k, q: (k) => M.qmethod_labels[k] || k };
+  const LEVELS = ["total", "category", "brand", "sku"];
+  const APPROACH = { base: "Base (not coherent)", bottom_up: "Bottom-up", top_down: "Top-down (historical shares)",
+    ols: "OLS reconciliation", wls_structural: "WLS (structural)", mint_shrink: "MinT (shrinkage)" };
+  const ARCH = { informed: "Informed", optimistic: "Optimistic", chaser: "Chaser", sandbagger: "Sandbagger" };
+
+  // ------------------------------------------------------------ chart helpers
+  const charts = {};
+  const tables = {};
+  function chart(id) { if (!charts[id]) charts[id] = echarts.init($("c-" + id), null, { renderer: "svg" }); return charts[id]; }
+  const axisCommon = { axisLine: { lineStyle: { color: C.base } }, axisTick: { show: false },
+    axisLabel: { color: C.muted }, splitLine: { lineStyle: { color: C.grid } }, nameTextStyle: { color: C.ink2 } };
+  const axis = (spec, extra = {}) => Object.assign({}, axisCommon, spec, extra,
+    { axisLabel: Object.assign({}, axisCommon.axisLabel, spec.axisLabel || {}, extra.axisLabel || {}) });
+  const tooltip = (extra = {}) => Object.assign({ backgroundColor: "#121270", borderColor: C.base, textStyle: { color: C.ink }, confine: true }, extra);
+  const legend = (extra = {}) => Object.assign({ textStyle: { color: C.ink2 }, icon: "roundRect", itemWidth: 14, itemHeight: 3, top: 0 }, extra);
+  const lineSeries = (name, data, color, extra = {}) => Object.assign({ name, type: "line", data, smooth: false, symbol: "circle", symbolSize: 8,
+    lineStyle: { width: 2, color }, itemStyle: { color, borderColor: C.surface, borderWidth: 2 }, emphasis: { focus: "series" } }, extra);
+  function renderTable(box, cols, rows, opts = {}) {
+    box.textContent = "";
+    const t = el("table"); const thead = el("thead"); const tr = el("tr");
+    cols.forEach((c, i) => tr.appendChild(el("th", { text: c, cls: i === 0 || (opts.left || []).includes(i) ? "l" : "" })));
+    thead.appendChild(tr); t.appendChild(thead);
+    const tb = el("tbody");
+    rows.forEach((r, ri) => { const row = el("tr", { cls: (opts.hl && opts.hl(ri)) ? "hl" : (opts.total && opts.total(ri) ? "total" : "") });
+      r.forEach((v, i) => row.appendChild(el("td", { text: v == null ? "–" : String(v), cls: i === 0 || (opts.left || []).includes(i) ? "l" : "" })));
+      tb.appendChild(row); });
+    t.appendChild(tb); box.appendChild(t);
+  }
+  function setTable(id, cols, rows) { tables[id] = { cols, rows }; const box = $("t-" + id); if (box && !box.hidden) renderTable(box, cols, rows); }
+  document.querySelectorAll(".toggle").forEach(btn => btn.addEventListener("click", () => {
+    const id = btn.dataset.target, box = $("t-" + id), c = $("c-" + id);
+    const show = box.hidden; box.hidden = !show; c.hidden = show; btn.textContent = show ? "Chart" : "Table";
+    if (show && tables[id]) renderTable(box, tables[id].cols, tables[id].rows); else if (!show) charts[id] && charts[id].resize();
+  }));
+  function kpis(box, items) {
+    box.textContent = "";
+    items.forEach(it => { const k = el("div", { cls: "kpi" });
+      k.appendChild(el("div", { cls: "label", text: it.label })); k.appendChild(el("div", { cls: "value", text: it.value }));
+      if (it.delta) k.appendChild(el("div", { cls: "delta " + (it.tone || ""), text: it.delta }));
+      box.appendChild(k); });
+  }
+  function seg(box, options, value, onChange) {
+    box.textContent = "";
+    options.forEach(o => { const b = el("button", { type: "button", "aria-pressed": String(o.value === value), text: o.label });
+      b.addEventListener("click", () => { box.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", "false"));
+        b.setAttribute("aria-pressed", "true"); onChange(o.value); }); box.appendChild(b); });
+  }
+  function fillSelect(sel, options, value) { sel.textContent = "";
+    options.forEach(o => { const op = el("option", { value: o.value, text: o.label }); if (o.value === value) op.selected = true; sel.appendChild(op); }); }
+
+  // ------------------------------------------------------------ state
+  const skuIndex = Object.fromEntries(D.skus.map((s, i) => [s.sku, i]));
+  const topSku = D.skus.slice().sort((a, b) => D.demand[b.sku].reduce((x, y) => x + y, 0) - D.demand[a.sku].reduce((x, y) => x + y, 0))[0].sku;
+  const S = { sku: topSku, qmU: M.champion_qmethod, baseSet: M.hierarchy_default.base_set,
+    L: M.base_lead_time, h: M.base_holding_rate, basis: M.base_basis, qmI: M.champion_qmethod,
+    policy: "cr", cat: "All", vis: 0.5 };
+  const fm = M.champion_method;
+  const pid = (L, method, qm, lbl) => `L${L}|${method}|${qm}|${lbl}`;
+  const crLabel = (basis, h) => `cr_${basis}_h${Math.round(h * 100)}`;
+  const slLabel = (t) => `sl${Math.round(t * 100)}`;
+  function policyIdFor(state, method = fm) {
+    if (state.policy === "cr") return pid(state.L, method, state.qmI, crLabel(state.basis, state.h));
+    if (state.policy.startsWith("sl")) return pid(state.L, method, state.qmI, state.policy);
+    return pid(state.L, method, "cover", state.policy);
+  }
+  function price(policy, h, basis, cat) {
+    const rows = D.qty[policy]; if (!rows) return null;
+    let dem = 0, sal = 0, lost = 0, so = 0, mo = 0, inv = 0, hold = 0, lv = 0;
+    rows.forEach((r, i) => { const s = D.skus[i]; if (cat !== "All" && s.category !== cat) return;
+      const [d, sa, l, st, avg, m] = r; dem += d; sal += sa; lost += l; so += st; mo += m;
+      const val = avg * s.unit_cost; inv += val; hold += val * h / 12 * m;
+      lv += l * Math.max(basis === "profit" ? s.unit_profit : s.unit_gross_margin, 0); });
+    return { fill: sal / dem, csl: 1 - so / mo, inv, hold, lost: lv, total: hold + lv, lostUnits: lost };
+  }
+
+  // ------------------------------------------------------------ header & footer
+  const badges = [`Test year ${M.test_year}`, `Champion: ${label.m(fm)} + ${label.q(M.champion_qmethod)}`,
+    `${M.n_policies} policies simulated`, `Warehouse checks ${M.checks}`, `SQL = Python on ${M.reconciled} figures`, `Data generated ${M.generated}`];
+  badges.forEach(b => $("badges").appendChild(el("span", { cls: "badge", text: b })));
+  [["Simulation, not operations.", " Stock, stock-outs and costs come from a month-by-month replay of 2025 demand with a 6-month warm-up; lead time, holding cost and lost-sale cost are assumptions shown with sensitivity."],
+   ["Synthetic data.", " The source dataset shows signs of being synthetic (no autocorrelation, very even order counts), so findings describe this data, not FMCG in general."],
+   ["Upper bound.", " Value-of-information results assume visible orders are certain and on time."]].forEach(([b, t]) => {
+    const p = el("p"); p.appendChild(el("strong", { text: b })); p.appendChild(document.createTextNode(t)); $("foot").appendChild(p); });
+
+  // ------------------------------------------------------------ tabs
+  const tabs = [["tab-u", "p-u"], ["tab-i", "p-i"], ["tab-v", "p-v"]];
+  tabs.forEach(([t, p]) => $(t).addEventListener("click", () => {
+    tabs.forEach(([t2, p2]) => { $(t2).setAttribute("aria-selected", String(t2 === t)); $(p2).classList.toggle("active", p2 === p); });
+    try { localStorage.setItem("planning.tab", t); } catch (e) { /* storage unavailable */ }
+    Object.values(charts).forEach(c => c.resize());
+  }));
+  try { const saved = localStorage.getItem("planning.tab"); if (saved && $(saved)) $(saved).click(); } catch (e) { /* ignore */ }
+  window.addEventListener("resize", () => Object.values(charts).forEach(c => c.resize()));
+
+  // ===================================================== page 1
+  fillSelect($("f-sku"), D.skus.map(s => ({ value: s.sku, label: `${s.name} (${s.sku})` })), S.sku);
+  fillSelect($("f-qm-u"), M.qmethods.map(q => ({ value: q, label: label.q(q) })), S.qmU);
+  fillSelect($("f-base"), [["level_best", "Best method per level"], ["historical_average", "Historical average"], ["seasonal_naive", "Seasonal naive"]]
+    .map(([v, l]) => ({ value: v, label: l })), S.baseSet);
+  $("f-sku").addEventListener("change", e => { S.sku = e.target.value; renderU(); });
+  $("f-qm-u").addEventListener("change", e => { S.qmU = e.target.value; renderU(); });
+  $("f-base").addEventListener("change", e => { S.baseSet = e.target.value; renderHier(); });
+
+  function renderU() {
+    const rel = D.reliability[S.qmU]; const at = (t) => rel.coverage[rel.tau.findIndex(x => Math.abs(x - t) < 1e-9)];
+    const itRow = D.interval_table.find(r => r.qmethod === S.qmU && r.window === 1);
+    kpis($("kpi-u"), [
+      { label: "SKU-month error (WAPE), 1 month ahead", value: pct(M.sku_wape), delta: "History-only floor ≈ 26% (main project)" },
+      { label: "Company-total error (WAPE)", value: pct(M.total_wape), delta: "Noise cancels when 30 SKUs are summed" },
+      { label: "Months below the 95% quantile", value: pct(at(0.95)), delta: at(0.95) < 0.95 ? "Below target: buffers too thin" : "At or above target",
+        tone: at(0.95) < 0.95 ? "bad" : "good" },
+      { label: "Width of the 90% range", value: pct(itRow["interval90_rel_width"], 0), delta: "as a share of mean monthly demand" },
+    ]);
+    // fan chart
+    const s = D.skus[skuIndex[S.sku]]; $("fan-title").textContent = `${s.name} (${s.sku}): forecast range vs actual`;
+    const months = D.months, test0 = months.indexOf(D.test_months[0]);
+    const f = D.fan[S.qmU][S.sku]; const act = D.demand[S.sku];
+    const pad = (arr) => months.map((_, i) => i < test0 ? null : arr[i - test0]);
+    const hist = months.map((_, i) => (i < test0 ? act[i] : null));
+    const actual = months.map((_, i) => i >= test0 ? act[i] : null);
+    const band = (lo, hi, name, op) => [
+      { name: name + "_lo", type: "line", stack: name, data: pad(f[lo]), lineStyle: { opacity: 0 }, symbol: "none", tooltip: { show: false }, silent: true },
+      { name, type: "line", stack: name, data: pad(f[hi].map((v, i) => v - f[lo][i])), lineStyle: { opacity: 0 }, symbol: "none",
+        areaStyle: { color: C.s[0], opacity: op }, itemStyle: { color: C.s[0], opacity: Math.min(1, op * 3) }, silent: true } ];
+    chart("fan").setOption({
+      animation: false, grid: { left: 56, right: 16, top: 36, bottom: 30 },
+      legend: legend({ data: ["History", "90% range", "80% range", "50% range", "Median forecast", "Actual 2025"] }),
+      tooltip: tooltip({ trigger: "axis", axisPointer: { type: "line", lineStyle: { color: C.muted } },
+        formatter: (ps) => { const i = ps[0].dataIndex; const lines = [`<b>${months[i]}</b>`];
+          if (i < test0) lines.push(`Actual <b>${num(act[i])}</b>`);
+          else { const j = i - test0; lines.push(`Actual <b>${num(act[i])}</b>`, `Median forecast ${num(f["0.5"][j])}`,
+            `80% range ${num(f["0.1"][j])} – ${num(f["0.9"][j])}`, `90% range ${num(f["0.05"][j])} – ${num(f["0.95"][j])}`); }
+          return lines.join("<br>"); } }),
+      xAxis: axis({ type: "category", data: months, boundaryGap: false }, { splitLine: { show: false } }),
+      yAxis: axis({ type: "value", axisLabel: { color: C.muted, formatter: v => (v / 1000).toFixed(0) + "K" } }),
+      series: [
+        lineSeries("History", hist, C.muted, { symbol: "none", lineStyle: { width: 1.5, color: C.muted } }),
+        ...band("0.05", "0.95", "90% range", 0.14), ...band("0.1", "0.9", "80% range", 0.18), ...band("0.25", "0.75", "50% range", 0.26),
+        lineSeries("Median forecast", pad(f["0.5"]), C.s[0], { symbol: "none" }),
+        lineSeries("Actual 2025", actual, C.s[1]),
+      ],
+    }, true);
+    setTable("fan", ["Month", "Actual", "Median", "5%", "10%", "90%", "95%", "Below 95%?"],
+      D.test_months.map((m, j) => [m, num(act[test0 + j]), num(f["0.5"][j]), num(f["0.05"][j]), num(f["0.1"][j]), num(f["0.9"][j]), num(f["0.95"][j]),
+        act[test0 + j] <= f["0.95"][j] ? "yes" : "no"]));
+    // reliability
+    chart("rel").setOption({
+      animation: false, grid: { left: 48, right: 16, top: 56, bottom: 40 },
+      legend: legend({ data: ["Perfect calibration", ...M.qmethods.map(label.q)], width: "100%" }),
+      tooltip: tooltip({ trigger: "item", formatter: p => `${p.seriesName}<br>target ${pct(p.value[0], 1)} → achieved <b>${pct(p.value[1], 1)}</b>` }),
+      xAxis: axis({ type: "value", min: 0, max: 1, name: "Target quantile", nameLocation: "middle", nameGap: 26, axisLabel: { color: C.muted, formatter: v => pct(v, 0) } }),
+      yAxis: axis({ type: "value", min: 0, max: 1, axisLabel: { color: C.muted, formatter: v => pct(v, 0) } }),
+      series: [lineSeries("Perfect calibration", [[0, 0], [1, 1]], C.muted, { symbol: "none", lineStyle: { width: 1, color: C.muted }, tooltip: { show: false } }),
+        ...M.qmethods.map((q, k) => lineSeries(label.q(q), D.reliability[q].tau.map((t, i) => [t, D.reliability[q].coverage[i]]), C.s[k],
+          { lineStyle: { width: q === S.qmU ? 3 : 2, color: C.s[k] } }))],
+    }, true);
+    setTable("rel", ["Target quantile", ...M.qmethods.map(label.q)],
+      D.reliability[M.qmethods[0]].tau.map((t, i) => [pct(t, 1), ...M.qmethods.map(q => pct(D.reliability[q].coverage[i], 1))]));
+    // monitor
+    const limit = D.monitor[M.qmethods[0]].limit;
+    chart("mon").setOption({
+      animation: false, grid: { left: 48, right: 16, top: 56, bottom: 30 },
+      legend: legend({ data: ["Target 95%", "Alarm limit", ...M.qmethods.map(label.q)], width: "100%" }),
+      tooltip: tooltip({ trigger: "axis", valueFormatter: v => pct(v, 1) }),
+      xAxis: axis({ type: "category", data: D.test_months }, { splitLine: { show: false } }),
+      yAxis: axis({ type: "value", min: 0.85, max: 1, axisLabel: { color: C.muted, formatter: v => pct(v, 0) } }),
+      series: [lineSeries("Target 95%", D.test_months.map(() => 0.95), C.muted, { symbol: "none", lineStyle: { width: 1, color: C.muted } }),
+        lineSeries("Alarm limit", limit, C.muted, { symbol: "none", lineStyle: { width: 1, type: [4, 3], color: C.muted } }),
+        ...M.qmethods.map((q, k) => lineSeries(label.q(q), D.monitor[q].coverage, C.s[k]))],
+    }, true);
+    setTable("mon", ["Month", "Alarm limit", ...M.qmethods.map(label.q)],
+      D.test_months.map((m, i) => [m, pct(limit[i], 1), ...M.qmethods.map(q => pct(D.monitor[q].coverage[i], 1) + (D.monitor[q].alarm[i] ? " ⚠" : ""))]));
+    // interval table
+    renderTable($("t-int"), ["Method", "Window", "≤ 90% q", "≤ 95% q", "90% width", "Pinball"],
+      D.interval_table.map(r => [label.q(r.qmethod), r.window + " m", pct(r["coverage_0.9"]), pct(r["coverage_0.95"]),
+        pct(r["interval90_rel_width"], 0), r.scaled_pinball.toFixed(3)]), { hl: (i) => D.interval_table[i].qmethod === M.champion_qmethod && D.interval_table[i].window === 1 });
+  }
+  function renderHier() {
+    const rows = Object.keys(APPROACH).map(a => {
+      const r = LEVELS.map(lv => D.hierarchy.find(x => x.base_set === S.baseSet && x.approach === a && x.level === lv));
+      return [APPROACH[a], ...r.map(x => pct(x.wape)), r[0].coherent ? "yes" : "no"]; });
+    renderTable($("t-hier"), ["Approach", "Total", "Category", "Brand", "SKU", "Adds up"], rows,
+      { hl: (i) => S.baseSet === M.hierarchy_default.base_set && Object.keys(APPROACH)[i] === M.hierarchy_default.approach });
+    $("hier-note").textContent = S.baseSet === "historical_average"
+      ? "The historical average is linear, so its forecasts already add up: every approach gives the same numbers."
+      : "Reconciliation makes every level add up. Differences between approaches are small next to the gap between levels, which comes from noise cancelling in totals.";
+  }
+
+  // ===================================================== page 2
+  seg($("f-L"), M.lead_times.map(l => ({ value: l, label: l === 0 ? "None" : l + " month" + (l > 1 ? "s" : "") })), S.L, v => { S.L = v; renderI(); });
+  seg($("f-h"), M.holding_rates.map(h => ({ value: h, label: Math.round(h * 100) + "%" })), S.h, v => { S.h = v; renderI(); });
+  $("f-basis").value = S.basis;
+  fillSelect($("f-qm-i"), M.qmethods.map(q => ({ value: q, label: label.q(q) })), S.qmI);
+  fillSelect($("f-policy"), [{ value: "cr", label: "Cost-optimal target per SKU" },
+    ...M.service_targets.map(t => ({ value: slLabel(t), label: `Uniform ${Math.round(t * 100)}% target` })),
+    ...M.cover_rules.map(k => ({ value: "k" + k.toFixed(2), label: `Rule of thumb: ${k} month${k === 1 ? "" : "s"} of cover` }))], S.policy);
+  fillSelect($("f-cat"), [{ value: "All", label: "All categories" }, ...[...new Set(D.skus.map(s => s.category))].sort().map(c => ({ value: c, label: c }))], S.cat);
+  $("f-basis").addEventListener("change", e => { S.basis = e.target.value; renderI(); });
+  $("f-qm-i").addEventListener("change", e => { S.qmI = e.target.value; renderI(); });
+  $("f-policy").addEventListener("change", e => { S.policy = e.target.value; renderI(); });
+  $("f-cat").addEventListener("change", e => { S.cat = e.target.value; renderI(); });
+
+  function renderI() {
+    const cur = price(policyIdFor(S), S.h, S.basis, S.cat);
+    const ref = price(pid(S.L, fm, S.qmI, "sl95"), S.h, S.basis, S.cat);
+    const d = (a, b, lowerIsGood = true) => { const x = a - b; if (Math.abs(x) < 1e-9) return { delta: "same as uniform 95%" };
+      const good = lowerIsGood ? x < 0 : x > 0; return { delta: `${x > 0 ? "+" : "−"}${money(Math.abs(x))} vs uniform 95%`, tone: good ? "good" : "bad" }; };
+    const dp = (a, b) => { const x = a - b; if (Math.abs(x) < 1e-6) return { delta: "same as uniform 95%" };
+      return { delta: `${x > 0 ? "+" : "−"}${(Math.abs(x) * 100).toFixed(2)} pts vs uniform 95%`, tone: x > 0 ? "good" : "bad" }; };
+    kpis($("kpi-i"), [
+      Object.assign({ label: "Average inventory (at cost)", value: money(cur.inv) }, d(cur.inv, ref.inv)),
+      Object.assign({ label: "Fill rate (demand served)", value: pct(cur.fill, 2) }, dp(cur.fill, ref.fill)),
+      Object.assign({ label: "Months without a stock-out", value: pct(cur.csl, 1) }, dp(cur.csl, ref.csl)),
+      Object.assign({ label: "Holding cost per year", value: money(cur.hold) }, d(cur.hold, ref.hold)),
+      Object.assign({ label: "Lost sales cost per year", value: money(cur.lost) }, d(cur.lost, ref.lost)),
+      Object.assign({ label: "Total cost per year", value: money(cur.total) }, d(cur.total, ref.total)),
+    ]);
+    // frontier: forecast methods with the selected interval method
+    const targets = M.service_targets;
+    const frontRows = [];
+    const series = M.methods.map((m, k) => {
+      const pts = targets.map(t => { const p = price(pid(S.L, m, S.qmI, slLabel(t)), S.h, S.basis, S.cat);
+        frontRows.push([label.m(m), pct(t, 0), money(p.inv), pct(p.fill, 2), money(p.total)]);
+        return { value: [p.inv, p.fill], target: t, total: p.total }; });
+      return lineSeries(label.m(m), pts, C.s[k]); });
+    const selVal = [cur.inv, cur.fill];
+    series.push({ name: "Selected policy", type: "scatter", data: [{ value: selVal }], symbolSize: 18,
+      itemStyle: { color: "rgba(0,0,0,0)", borderColor: C.ink, borderWidth: 2 }, z: 5,
+      tooltip: { formatter: () => `Selected policy<br>${money(cur.inv)} stock → fill <b>${pct(cur.fill, 2)}</b><br>cost ${money(cur.total)}/yr` } });
+    chart("front").setOption({
+      animation: false, grid: { left: 56, right: 32, top: 56, bottom: 44 },
+      legend: legend({ data: M.methods.map(label.m), width: "100%" }),
+      tooltip: tooltip({ trigger: "item", formatter: p => p.data && p.data.target != null ?
+        `${p.seriesName}, target ${pct(p.data.target, 0)}<br>stock ${money(p.value[0])} → fill <b>${pct(p.value[1], 2)}</b><br>cost ${money(p.data.total)}/yr` : "" }),
+      xAxis: axis({ type: "value", scale: true, name: "Average inventory at cost", nameLocation: "middle", nameGap: 28,
+        axisLabel: { color: C.muted, formatter: v => money(v) } }),
+      yAxis: axis({ type: "value", scale: true, axisLabel: { color: C.muted, formatter: v => pct(v, 1) } }),
+      series,
+    }, true);
+    setTable("front", ["Forecast method", "Target", "Avg inventory", "Fill rate", "Total cost / yr"], frontRows);
+    // cost vs service
+    const uni = targets.map(t => price(pid(S.L, fm, S.qmI, slLabel(t)), S.h, S.basis, S.cat));
+    const crp = price(pid(S.L, fm, S.qmI, crLabel(S.basis, S.h)), S.h, S.basis, S.cat);
+    const covers = M.cover_rules.map(k => price(pid(S.L, fm, "cover", "k" + k.toFixed(2)), S.h, S.basis, S.cat));
+    const bestCover = covers.reduce((a, b) => (b.total < a.total ? b : a));
+    const xs = targets.map(t => Math.round(t * 100) + "%");
+    chart("cost").setOption({
+      animation: false, grid: { left: 60, right: 16, top: 56, bottom: 44 },
+      legend: legend({ data: ["Uniform target", "Cost-optimal per SKU", "Best rule of thumb (hindsight)"], width: "100%" }),
+      tooltip: tooltip({ trigger: "axis", valueFormatter: v => money(v) + "/yr" }),
+      xAxis: axis({ type: "category", data: xs, name: "Uniform service-level target", nameLocation: "middle", nameGap: 22 }, { splitLine: { show: false } }),
+      yAxis: axis({ type: "value", scale: true, axisLabel: { color: C.muted, formatter: v => money(v) } }),
+      series: [lineSeries("Uniform target", uni.map(p => p.total), C.s[0]),
+        lineSeries("Cost-optimal per SKU", xs.map(() => crp.total), C.s[2], { symbol: "none" }),
+        lineSeries("Best rule of thumb (hindsight)", xs.map(() => bestCover.total), C.s[3], { symbol: "none" })],
+    }, true);
+    setTable("cost", ["Policy", "Avg inventory", "Fill rate", "Holding / yr", "Lost sales / yr", "Total / yr"],
+      [...targets.map((t, i) => [`Uniform ${Math.round(t * 100)}%`, money(uni[i].inv), pct(uni[i].fill, 2), money(uni[i].hold), money(uni[i].lost), money(uni[i].total)]),
+       ["Cost-optimal per SKU", money(crp.inv), pct(crp.fill, 2), money(crp.hold), money(crp.lost), money(crp.total)],
+       ...M.cover_rules.map((k, i) => [`Rule of thumb ${k} m`, money(covers[i].inv), pct(covers[i].fill, 2), money(covers[i].hold), money(covers[i].lost), money(covers[i].total)])]);
+    renderPlan(); renderSens();
+  }
+  function renderPlan() {
+    const id = policyIdFor(S); const plan = D.plan[id];
+    $("plan-title").textContent = `Replenishment plan for ${M.plan_month}`;
+    const box = $("t-plan");
+    if (!plan) { box.textContent = ""; box.appendChild(el("p", { cls: "note", text: "Plans are generated for statistical (quantile) policies. Pick a cost-optimal or uniform target to see one." }));
+      $("plan-sub").textContent = ""; return; }
+    const cr = D.critical_ratio[`${S.basis}|${S.h}`];
+    const target = (i) => S.policy === "cr" ? cr[i] : Number(S.policy.slice(2)) / 100;
+    $("plan-sub").textContent = `Order placed at the start of ${M.plan_month}, arrives after ${S.L} month${S.L === 1 ? "" : "s"}. ` +
+      `Order-up-to = expected demand over ${S.L + 1} month${S.L ? "s" : ""} + safety stock; order = order-up-to − (on hand + in transit).`;
+    const idx = D.skus.map((s, i) => i).filter(i => S.cat === "All" || D.skus[i].category === S.cat)
+      .sort((a, b) => plan[b][5] - plan[a][5]);
+    const rows = idx.map(i => { const s = D.skus[i], p = plan[i];
+      return [s.sku, s.name, s.category, s.abc, pct(target(i), 1), num(p[0]), num(p[1]), num(p[2]), num(p[3]), num(p[4]), money(p[5])]; });
+    const tot = idx.reduce((a, i) => [a[0] + plan[i][0], a[1] + plan[i][1], a[2] + plan[i][4], a[3] + plan[i][5]], [0, 0, 0, 0]);
+    rows.push(["Total", "", "", "", "", num(tot[0]), num(tot[1]), "", "", num(tot[2]), money(tot[3])]);
+    renderTable(box, ["SKU", "Product", "Category", "ABC", "Target", "Expected demand", "Safety stock", "Order-up-to", "On hand + in transit", "Order units", "Order value"],
+      rows, { left: [1, 2, 3], total: (i) => i === rows.length - 1 });
+  }
+  function renderSens() {
+    renderTable($("t-sens"), ["Lead time", "Holding", "Lost sale =", "Cost-optimal / yr", "Uniform 95% / yr", "Saving vs 95%", "Best rule of thumb / yr", "Saving vs rule"],
+      D.sensitivity.map(r => [r.lead_time + " m", pct(r.holding_rate, 0), r.lost_sale_basis === "profit" ? "profit" : "gross margin",
+        money(r.cr_total_cost), money(r.sl95_total_cost), pct(r.cr_saving_vs_sl95), money(r.best_cover_total_cost), pct(r.cr_saving_vs_best_cover)]),
+      { hl: (i) => D.sensitivity[i].lead_time === S.L && Math.abs(D.sensitivity[i].holding_rate - S.h) < 1e-9 && D.sensitivity[i].lost_sale_basis === S.basis });
+  }
+
+  // ===================================================== page 3
+  const visLevels = [...new Set(D.voi.map(v => v.visibility))].sort((a, b) => a - b);
+  seg($("f-vis"), visLevels.map(v => ({ value: v, label: Math.round(v * 100) + "%" })), S.vis, v => { S.vis = v; renderV(); });
+  const co = D.voi.filter(v => v.policy === "cost_optimal").sort((a, b) => a.visibility - b.visibility);
+  $("voi-callout").textContent = `Orders of ${num(M.large_threshold)}+ units are ${pct(M.large_share_orders, 0)} of orders but ${pct(M.large_share_units, 0)} of units, and ` +
+    `${pct(M.large_b2b_share, 0)} of them are B2B. A CRM or order pipeline that reveals them before the replenishment decision is the one lever here that beats the history-only error floor.`;
+  function renderV() {
+    const v = co.find(x => Math.abs(x.visibility - S.vis) < 1e-9), v0 = co[0];
+    kpis($("kpi-v"), [
+      { label: "SKU-month error (WAPE)", value: pct(v.sku_wape), delta: `${((v.sku_wape - v0.sku_wape) * 100).toFixed(1)} pts vs no pipeline`, tone: v.sku_wape < v0.sku_wape ? "good" : "" },
+      { label: "Average inventory (at cost)", value: money(v.inventory_value), delta: `−${pct(v.inventory_reduction_vs_none)} vs no pipeline`, tone: v.inventory_reduction_vs_none > 0 ? "good" : "" },
+      { label: "Fill rate", value: pct(v.fill_rate, 2) },
+      { label: "Cost saving per year", value: money(v.cost_saving_vs_none), delta: "holding + lost sales, vs no pipeline", tone: v.cost_saving_vs_none > 0 ? "good" : "" },
+    ]);
+    const xs = co.map(x => Math.round(x.visibility * 100) + "%");
+    const sel = co.map(x => Math.abs(x.visibility - S.vis) < 1e-9 ? { value: x.inventory_value, symbolSize: 14 } : x.inventory_value);
+    chart("voiinv").setOption({
+      animation: false, grid: { left: 60, right: 16, top: 36, bottom: 30 },
+      legend: legend({ data: ["Mean of 30 draws", "5th–95th percentile"] }),
+      tooltip: tooltip({ trigger: "axis", formatter: ps => { const i = ps[0].dataIndex; const r = co[i];
+        return `<b>${xs[i]}</b> visible<br>inventory <b>${money(r.inventory_value)}</b><br>range ${money(r.inventory_p05)} – ${money(r.inventory_p95)}`; } }),
+      xAxis: axis({ type: "category", data: xs, boundaryGap: false }, { splitLine: { show: false } }),
+      yAxis: axis({ type: "value", scale: true, axisLabel: { color: C.muted, formatter: v => money(v) } }),
+      series: [{ name: "_lo", type: "line", stack: "b", data: co.map(x => x.inventory_p05), lineStyle: { opacity: 0 }, symbol: "none", silent: true, tooltip: { show: false } },
+        { name: "5th–95th percentile", type: "line", stack: "b", data: co.map(x => x.inventory_p95 - x.inventory_p05), lineStyle: { opacity: 0 }, symbol: "none",
+          areaStyle: { color: C.s[0], opacity: 0.16 }, silent: true, itemStyle: { color: C.s[0] } },
+        lineSeries("Mean of 30 draws", sel, C.s[0])],
+    }, true);
+    setTable("voiinv", ["Visible", "Inventory", "5th pct", "95th pct", "Reduction", "Cost saving / yr"],
+      co.map(x => [pct(x.visibility, 0), money(x.inventory_value), money(x.inventory_p05), money(x.inventory_p95), pct(x.inventory_reduction_vs_none), money(x.cost_saving_vs_none)]));
+    chart("voiwape").setOption({
+      animation: false, grid: { left: 48, right: 16, top: 36, bottom: 30 },
+      legend: legend({ data: ["SKU-month WAPE", "History-only floor (main project)"] }),
+      tooltip: tooltip({ trigger: "axis", valueFormatter: v => pct(v, 1) }),
+      xAxis: axis({ type: "category", data: xs, boundaryGap: false }, { splitLine: { show: false } }),
+      yAxis: axis({ type: "value", min: 0.15, max: 0.30, axisLabel: { color: C.muted, formatter: v => pct(v, 0) } }),
+      series: [lineSeries("SKU-month WAPE", co.map(x => Math.abs(x.visibility - S.vis) < 1e-9 ? { value: x.sku_wape, symbolSize: 14 } : x.sku_wape), C.s[1]),
+        lineSeries("History-only floor (main project)", xs.map(() => 0.262), C.muted, { symbol: "none", lineStyle: { width: 1, type: [4, 3], color: C.muted } })],
+    }, true);
+    setTable("voiwape", ["Visible", "WAPE", "5th pct", "95th pct"], co.map(x => [pct(x.visibility, 0), pct(x.sku_wape), pct(x.sku_wape_p05), pct(x.sku_wape_p95)]));
+  }
+  function renderFva() {
+    const rows = D.fva;
+    chart("fva").setOption({
+      animation: false, grid: { left: 110, right: 40, top: 16, bottom: 36 },
+      tooltip: tooltip({ trigger: "item", formatter: p => { const r = rows[p.dataIndex];
+        return `<b>${r.label}</b><br>FVA <b>${r.fva_points.toFixed(1)} pts</b><br>bias ${pct(r.bias_final)}<br>cost change ${money(r.cost_change_vs_statistical)}/yr`; } }),
+      xAxis: axis({ type: "value", name: "WAPE points (positive = helped)", nameLocation: "middle", nameGap: 24 }),
+      yAxis: axis({ type: "category", data: rows.map(r => ARCH[r.archetype] || r.archetype), inverse: true }, { splitLine: { show: false } }),
+      series: [{ type: "bar", barMaxWidth: 24, data: rows.map(r => ({ value: r.fva_points,
+          itemStyle: { color: r.fva_points >= 0 ? C.pos : C.neg, borderRadius: r.fva_points >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4] } })),
+        label: { show: true, position: "right", color: C.ink, formatter: p => (p.value >= 0 ? "+" : "") + p.value.toFixed(1) } }],
+    }, true);
+    setTable("fva", ["Planner", "WAPE after override", "FVA (pts)", "Bias", "Overrides that helped", "Inventory", "Cost change / yr"],
+      rows.map(r => [r.label, pct(r.wape_final), r.fva_points.toFixed(1), pct(r.bias_final), pct(r.overrides_improved_share, 0), money(r.avg_inventory_value), money(r.cost_change_vs_statistical)]));
+  }
+
+  // ------------------------------------------------------------ override replay
+  fillSelect($("r-sku"), D.skus.map(s => ({ value: s.sku, label: `${s.name} (${s.sku})` })), topSku);
+  fillSelect($("r-month"), D.test_months.map((m, i) => ({ value: String(i), label: m })), "0");
+  const LOG_KEY = "planning.override_log";
+  let log = [];
+  try { log = JSON.parse(localStorage.getItem(LOG_KEY) || "[]"); if (!Array.isArray(log)) log = []; } catch (e) { log = []; }
+  const saveLog = () => { try { localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch (e) { /* storage unavailable: keep in memory */ } };
+  function systemView() {
+    const sku = $("r-sku").value, j = Number($("r-month").value);
+    const f = D.fan[M.champion_qmethod][sku];
+    $("r-system").textContent = `System forecast for ${D.test_months[j]}: ${num(D.stat_point[sku][j])} units ` +
+      `(80% range ${num(f["0.1"][j])} – ${num(f["0.9"][j])}). Enter your number and why.`;
+    if (!$("r-value").value) $("r-value").placeholder = String(Math.round(D.stat_point[sku][j]));
+  }
+  function renderLog() {
+    const box = $("t-log");
+    if (!log.length) { box.textContent = ""; $("log-note").textContent = "No overrides logged yet."; return; }
+    const rows = log.map(x => [x.sku, x.month, num(x.stat), num(x.mine), x.reason, num(x.actual),
+      (Math.abs(x.actual - x.stat) - Math.abs(x.actual - x.mine) >= 0 ? "+" : "−") + num(Math.abs(Math.abs(x.actual - x.stat) - Math.abs(x.actual - x.mine)))]);
+    renderTable(box, ["SKU", "Month", "System", "Yours", "Reason", "Actual", "Error saved"], rows, { left: [4] });
+    const act = log.reduce((a, x) => a + x.actual, 0);
+    const fva = (log.reduce((a, x) => a + Math.abs(x.actual - x.stat) - Math.abs(x.actual - x.mine), 0) / act) * 100;
+    $("log-note").textContent = `Your Forecast Value Added over ${log.length} override${log.length > 1 ? "s" : ""}: ${fva >= 0 ? "+" : ""}${fva.toFixed(1)} WAPE points ` +
+      `(${fva >= 0 ? "your overrides helped" : "the system forecast was better"}). Stored only in this browser.`;
+  }
+  $("r-sku").addEventListener("change", () => { $("r-value").value = ""; systemView(); });
+  $("r-month").addEventListener("change", () => { $("r-value").value = ""; systemView(); });
+  $("r-go").addEventListener("click", () => {
+    const sku = $("r-sku").value, j = Number($("r-month").value), raw = $("r-value").value;
+    const mine = raw === "" ? NaN : Number(raw);
+    if (!Number.isFinite(mine) || mine < 0) { $("r-system").textContent = "Enter a forecast (units, 0 or more) first."; return; }
+    const actual = D.demand[sku][D.months.indexOf(D.test_months[j])];
+    log.push({ sku, month: D.test_months[j], stat: D.stat_point[sku][j], mine, reason: $("r-reason").value, actual });
+    saveLog(); renderLog();
+    $("r-system").textContent = `Actual ${D.test_months[j]}: ${num(actual)} units. System error ${num(Math.abs(actual - D.stat_point[sku][j]))}, yours ${num(Math.abs(actual - mine))}.`;
+  });
+  $("r-clear").addEventListener("click", () => { log = []; saveLog(); renderLog(); systemView(); });
+
+  // ------------------------------------------------------------ first render
+  renderU(); renderHier(); renderI(); renderV(); renderFva(); systemView(); renderLog();
+})();
+</script>
+</body>
+</html>

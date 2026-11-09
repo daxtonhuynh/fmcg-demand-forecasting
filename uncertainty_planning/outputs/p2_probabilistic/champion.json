@@ -1,0 +1,19 @@
+{
+  "selection_period": [
+    "2024-07",
+    "2024-12"
+  ],
+  "point_wape_h1": {
+    "historical_average": 0.28044368949798393,
+    "seasonal_naive": 0.3564370154936599,
+    "naive": 0.38091479917885257,
+    "moving_average_3": 0.325360833437508
+  },
+  "forecast_method": "historical_average",
+  "scaled_pinball": {
+    "normal": 0.054321358436073164,
+    "empirical": 0.05485831116830641,
+    "empirical_scaled": 0.0555440546917552
+  },
+  "quantile_method": "normal"
+}

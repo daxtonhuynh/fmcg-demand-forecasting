@@ -1,0 +1,8 @@
+step,from_usd,to_usd,amount_usd
+Gross sales,0,1.70805e+07,1.70805e+07
+Discounts,1.44499e+07,1.70805e+07,-2.6306e+06
+Net revenue,0,1.44499e+07,1.44499e+07
+Cost of goods,5.85844e+06,1.44499e+07,-8.59148e+06
+Logistics,4.8729e+06,5.85844e+06,-985540
+Marketing,3.30897e+06,4.8729e+06,-1.56393e+06
+Profit,0,3.30897e+06,3.30897e+06

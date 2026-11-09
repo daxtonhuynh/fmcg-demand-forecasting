@@ -1,0 +1,145 @@
+{
+  "level_method_selection": {
+    "total": "seasonal_naive",
+    "category": "seasonal_naive",
+    "brand": "historical_average",
+    "sku": "historical_average"
+  },
+  "wape": {
+    "historical_average|base": {
+      "total": 0.0705279699221168,
+      "category": 0.12594734441989316,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "historical_average|bottom_up": {
+      "total": 0.07052796992211674,
+      "category": 0.12594734441989316,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "historical_average|mint_shrink": {
+      "total": 0.0705279699221168,
+      "category": 0.12594734441989314,
+      "brand": 0.20779354028822755,
+      "sku": 0.28175215320279534
+    },
+    "historical_average|ols": {
+      "total": 0.07052796992211675,
+      "category": 0.12594734441989322,
+      "brand": 0.20779354028822755,
+      "sku": 0.28175215320279534
+    },
+    "historical_average|top_down": {
+      "total": 0.0705279699221168,
+      "category": 0.12594734441989316,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "historical_average|wls_structural": {
+      "total": 0.0705279699221168,
+      "category": 0.12594734441989316,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "level_best|base": {
+      "total": 0.06582411876341213,
+      "category": 0.18078580279722636,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "level_best|bottom_up": {
+      "total": 0.07052796992211674,
+      "category": 0.12594734441989316,
+      "brand": 0.20779354028822755,
+      "sku": 0.2817521532027953
+    },
+    "level_best|mint_shrink": {
+      "total": 0.07190483975688713,
+      "category": 0.12600744601901892,
+      "brand": 0.2084536691938395,
+      "sku": 0.2835713492172739
+    },
+    "level_best|ols": {
+      "total": 0.06596020795860408,
+      "category": 0.15003170058177717,
+      "brand": 0.23065913427683415,
+      "sku": 0.29876951502236226
+    },
+    "level_best|top_down": {
+      "total": 0.0658241187634121,
+      "category": 0.12547788695081008,
+      "brand": 0.21132959809851654,
+      "sku": 0.2834393072758402
+    },
+    "level_best|wls_structural": {
+      "total": 0.06791029098944729,
+      "category": 0.12469821962865861,
+      "brand": 0.21268310577565325,
+      "sku": 0.2849746144527027
+    },
+    "seasonal_naive|base": {
+      "total": 0.06582411876341213,
+      "category": 0.18078580279722636,
+      "brand": 0.300619886928458,
+      "sku": 0.40714332759959626
+    },
+    "seasonal_naive|bottom_up": {
+      "total": 0.06582411876341213,
+      "category": 0.18078580279722636,
+      "brand": 0.300619886928458,
+      "sku": 0.40714332759959626
+    },
+    "seasonal_naive|mint_shrink": {
+      "total": 0.06582411876341213,
+      "category": 0.1807858027972264,
+      "brand": 0.30061988692845804,
+      "sku": 0.40714332759959626
+    },
+    "seasonal_naive|ols": {
+      "total": 0.06582411876341213,
+      "category": 0.18078580279722642,
+      "brand": 0.30061988692845804,
+      "sku": 0.40714332759959626
+    },
+    "seasonal_naive|top_down": {
+      "total": 0.0658241187634121,
+      "category": 0.12547788695081008,
+      "brand": 0.21132959809851654,
+      "sku": 0.2834393072758402
+    },
+    "seasonal_naive|wls_structural": {
+      "total": 0.06582411876341211,
+      "category": 0.18078580279722636,
+      "brand": 0.300619886928458,
+      "sku": 0.40714332759959615
+    }
+  },
+  "selection_scores": {
+    "historical_average|bottom_up": 0.17864856515731842,
+    "historical_average|mint_shrink": 0.17864856515731847,
+    "historical_average|ols": 0.1786485651573184,
+    "historical_average|top_down": 0.17864856515731845,
+    "historical_average|wls_structural": 0.17864856515731847,
+    "level_best|bottom_up": 0.17864856515731842,
+    "level_best|mint_shrink": 0.17259547394985172,
+    "level_best|ols": 0.16335103203268259,
+    "level_best|top_down": 0.16918314958422395,
+    "level_best|wls_structural": 0.16903827464256949,
+    "seasonal_naive|bottom_up": 0.1955895708857156,
+    "seasonal_naive|mint_shrink": 0.19558957088571563,
+    "seasonal_naive|ols": 0.1955895708857156,
+    "seasonal_naive|top_down": 0.16918314958422395,
+    "seasonal_naive|wls_structural": 0.1955895708857156
+  },
+  "best_coherent": {
+    "base_set": "level_best",
+    "approach": "ols",
+    "chosen_on": "selection period (mean WAPE over levels)",
+    "total": 0.06596020795860408,
+    "category": 0.15003170058177717,
+    "brand": 0.23065913427683415,
+    "sku": 0.29876951502236226
+  },
+  "mint_shrinkage_lambda_mean": 0.7091747019749032
+}
